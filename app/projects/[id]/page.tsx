@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarDays,
+  CheckCircle2,
+  Clock3,
+  MapPin,
+} from "lucide-react";
 
 import { projects } from "../../data/projects";
 
@@ -9,13 +15,31 @@ interface ProjectDetailsPageProps {
   }>;
 }
 
+function getVerificationLabel(
+  status: "verified" | "in_progress" | "unverified",
+) {
+  switch (status) {
+    case "verified":
+      return "Verified";
+
+    case "in_progress":
+      return "Verification in progress";
+
+    case "unverified":
+      return "Not yet verified";
+
+    default:
+      return status;
+  }
+}
+
 export default async function ProjectDetailsPage({
   params,
 }: ProjectDetailsPageProps) {
   const { id } = await params;
 
   const project = projects.find(
-    (item) => item.id === Number(id)
+    (item) => item.id === Number(id),
   );
 
   if (!project) {
@@ -36,7 +60,7 @@ export default async function ProjectDetailsPage({
 
           <Link
             href="/#projects"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold !text-slate-950 transition hover:bg-slate-200"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Projects
@@ -45,6 +69,13 @@ export default async function ProjectDetailsPage({
       </main>
     );
   }
+
+  const verificationLabel = getVerificationLabel(
+    project.verificationStatus,
+  );
+
+  const isVerified =
+    project.verificationStatus === "verified";
 
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-16 text-white sm:px-10 lg:px-16">
@@ -91,8 +122,41 @@ export default async function ProjectDetailsPage({
           </div>
         </div>
 
+        {/* Verification status */}
+        <div className="mt-10 rounded-3xl border border-blue-400/20 bg-blue-400/[0.05] p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            {isVerified ? (
+              <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
+            ) : (
+              <Clock3 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
+            )}
+
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-blue-300">
+                Information status
+              </p>
+
+              <h2 className="mt-2 text-xl font-semibold">
+                {verificationLabel}
+              </h2>
+
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
+                Project information is presented according to the
+                current source and verification status. Details will
+                be updated when supporting records are confirmed.
+              </p>
+
+              {project.lastVerified && (
+                <p className="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">
+                  Last verified: {project.lastVerified}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Project metrics */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Budget

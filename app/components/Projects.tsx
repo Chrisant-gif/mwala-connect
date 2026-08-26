@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
@@ -233,10 +234,14 @@ function ProjectCard({
       <div className="project-footer">
         <span>{project.source}</span>
 
-        <button type="button" className="project-link">
-          View project record
-          <span>↗</span>
-        </button>
+        <Link
+  href={`/projects/${project.id}`}
+  className="project-link"
+>
+  View project record
+  <span>↗</span>
+</Link>
+
       </div>
     </article>
   );

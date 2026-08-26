@@ -1,5 +1,4 @@
-"use client";
-
+import Link from "next/link";
 import { CalendarDays, MapPin, ArrowUpRight } from "lucide-react";
 
 import { engagements } from "../app/data/engagements";
@@ -68,13 +67,13 @@ export default function Engagements() {
                 </div>
               </div>
 
-              <button
-                type="button"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+              <Link
+                href={`/engagements/${featuredEngagement.id}`}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold !text-slate-950 transition hover:bg-slate-200"
               >
                 View Details
                 <ArrowUpRight className="h-4 w-4" />
-              </button>
+              </Link>
             </div>
           </div>
         )}
@@ -93,9 +92,10 @@ export default function Engagements() {
 
           <div className="grid gap-6 md:grid-cols-2">
             {pastEngagements.map((engagement) => (
-              <article
+              <Link
                 key={engagement.id}
-                className="group rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:p-8"
+                href={`/engagements/${engagement.id}`}
+                className="group block rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:p-8"
               >
                 <div className="mb-6 flex items-center justify-between gap-4">
                   <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-slate-300">
@@ -128,7 +128,7 @@ export default function Engagements() {
                   <CalendarDays className="h-4 w-4" />
                   {engagement.date}
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

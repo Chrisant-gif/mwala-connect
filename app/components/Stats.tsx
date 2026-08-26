@@ -23,7 +23,32 @@ const statistics = [
   },
 ];
 
+const developmentStatus = [
+  {
+    number: "01",
+    value: constituencyStatistics.ongoingProjects,
+    label: "Ongoing",
+  },
+  {
+    number: "02",
+    value: constituencyStatistics.completedProjects,
+    label: "Completed",
+  },
+  {
+    number: "03",
+    value: constituencyStatistics.pendingProjects,
+    label: "Pending",
+  },
+];
+
+function formatProjectCount(value: number) {
+  return value > 0 ? String(value) : "—";
+}
+
 export default function Stats() {
+  const allocationIsVerified =
+    constituencyStatistics.totalAllocation !== "To be verified";
+
   return (
     <>
       {/* Overview */}
@@ -48,6 +73,7 @@ export default function Stats() {
 
           <div className="source-note">
             <span className="source-dot" />
+
             Development information is being organised by project, ward and
             implementation status.
           </div>
@@ -58,6 +84,7 @@ export default function Stats() {
       <section className="stats-section">
         <div className="stats-intro">
           <span>MWALA AT A GLANCE</span>
+
           <span>
             FY {constituencyStatistics.financialYear}
           </span>
@@ -75,6 +102,38 @@ export default function Stats() {
           ))}
         </div>
 
+        {/* Development Status */}
+        <div className="development-status">
+          <div className="development-status-heading">
+            <div>
+              <span>DEVELOPMENT STATUS</span>
+
+              <p>
+                Current project records by implementation stage.
+              </p>
+            </div>
+
+            <span>PROJECTS</span>
+          </div>
+
+          <div className="development-status-grid">
+            {developmentStatus.map((item) => (
+              <article
+                className="development-status-card"
+                key={item.number}
+              >
+                <span className="stat-index">{item.number}</span>
+
+                <strong>
+                  {formatProjectCount(item.value)}
+                </strong>
+
+                <span>{item.label}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+
         {/* Financial Overview */}
         <div className="financial-overview">
           <div className="financial-heading">
@@ -89,9 +148,15 @@ export default function Stats() {
             <div>
               <span>Total allocation</span>
 
-              <strong>
-                {constituencyStatistics.totalAllocation}
-              </strong>
+              {allocationIsVerified ? (
+                <strong>
+                  {constituencyStatistics.totalAllocation}
+                </strong>
+              ) : (
+                <p className="financial-pending">
+                  To be verified
+                </p>
+              )}
             </div>
 
             <div className="financial-status">

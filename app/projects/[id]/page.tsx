@@ -33,6 +33,24 @@ function getVerificationLabel(
   }
 }
 
+function getStatusLabel(
+  status: "ongoing" | "completed" | "pending",
+) {
+  switch (status) {
+    case "ongoing":
+      return "Ongoing";
+
+    case "completed":
+      return "Completed";
+
+    case "pending":
+      return "Pending";
+
+    default:
+      return status;
+  }
+}
+
 export default async function ProjectDetailsPage({
   params,
 }: ProjectDetailsPageProps) {
@@ -74,6 +92,8 @@ export default async function ProjectDetailsPage({
     project.verificationStatus,
   );
 
+  const statusLabel = getStatusLabel(project.status);
+
   const isVerified =
     project.verificationStatus === "verified";
 
@@ -89,41 +109,81 @@ export default async function ProjectDetailsPage({
           Back to Projects
         </Link>
 
-        {/* Header */}
-        <div className="mt-12">
+        {/* Project Header */}
+        <header className="mt-12">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
               Project {String(project.id).padStart(2, "0")}
             </span>
 
             <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-blue-300">
-              {project.status}
+              {statusLabel}
             </span>
           </div>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl">
+          <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             {project.title}
           </h1>
 
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400">
+          <div className="mt-5 flex flex-col gap-3 text-sm text-slate-400 sm:flex-row sm:items-center sm:gap-5">
+            <div className="flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-blue-400" />
+              <span>{project.location}</span>
+            </div>
+
+            <span className="hidden text-slate-700 sm:block">
+              /
+            </span>
+
+            <span>{project.ward} Ward</span>
+          </div>
+
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-400">
             {project.description}
           </p>
-        </div>
+        </header>
 
-        {/* Location */}
-        <div className="mt-10 flex flex-col gap-3 text-sm text-slate-300 sm:flex-row sm:gap-6">
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-blue-400" />
-            {project.location}
-          </div>
+        {/* Implementation Highlight */}
+        <section className="mt-12 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+          <div className="flex flex-col gap-6 p-7 sm:p-9 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                Implementation Progress
+              </p>
 
-          <div className="text-slate-500">
-            {project.ward} Ward
+              <p className="mt-3 text-5xl font-bold tracking-tight sm:text-6xl">
+                {project.progress}%
+              </p>
+            </div>
+
+            <div className="w-full md:max-w-md">
+              <div className="mb-3 flex items-center justify-between text-xs font-medium uppercase tracking-wider">
+                <span className="text-slate-500">
+                  Current progress
+                </span>
+
+                <span className="text-slate-300">
+                  {statusLabel}
+                </span>
+              </div>
+
+              <div
+                className="h-3 overflow-hidden rounded-full bg-white/10"
+                aria-label={`Project progress: ${project.progress}%`}
+              >
+                <span
+                  className="block h-full rounded-full bg-blue-400 transition-all"
+                  style={{
+                    width: `${project.progress}%`,
+                  }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Verification status */}
-        <div className="mt-10 rounded-3xl border border-blue-400/20 bg-blue-400/[0.05] p-6 sm:p-8">
+        <section className="mt-8 rounded-3xl border border-blue-400/20 bg-blue-400/[0.05] p-6 sm:p-8">
           <div className="flex items-start gap-4">
             {isVerified ? (
               <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
@@ -153,10 +213,10 @@ export default async function ProjectDetailsPage({
               )}
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Project metrics */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Budget
@@ -169,39 +229,27 @@ export default async function ProjectDetailsPage({
 
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Implementation
+              Status
             </p>
 
             <p className="mt-3 text-xl font-semibold">
-              {project.progress}%
+              {statusLabel}
             </p>
-
-            <div
-              className="mt-4 h-2 overflow-hidden rounded-full bg-white/10"
-              aria-label={`Project progress: ${project.progress}%`}
-            >
-              <span
-                className="block h-full rounded-full bg-blue-400"
-                style={{
-                  width: `${project.progress}%`,
-                }}
-              />
-            </div>
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Status
+              Ward
             </p>
 
-            <p className="mt-3 text-xl font-semibold capitalize">
-              {project.status}
+            <p className="mt-3 text-xl font-semibold">
+              {project.ward}
             </p>
           </div>
-        </div>
+        </section>
 
         {/* Project timeline */}
-        <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
               <div className="flex items-center gap-2">
@@ -231,10 +279,10 @@ export default async function ProjectDetailsPage({
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Source */}
-        <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
             Information Source
           </p>
@@ -242,10 +290,10 @@ export default async function ProjectDetailsPage({
           <p className="mt-3 text-sm leading-7 text-slate-400">
             {project.source}
           </p>
-        </div>
+        </section>
 
         {/* Media placeholder */}
-        <div className="mt-8 rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-10 text-center">
+        <section className="mt-8 rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-10 text-center">
           <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
             Project Media
           </p>
@@ -253,7 +301,7 @@ export default async function ProjectDetailsPage({
           <p className="mt-3 text-sm text-slate-500">
             Project photographs, documents and video will appear here.
           </p>
-        </div>
+        </section>
       </div>
     </main>
   );

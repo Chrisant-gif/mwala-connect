@@ -1,21 +1,20 @@
 "use client";
 
-import { CalendarDays, Clock, MapPin, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import {
+  CalendarDays,
+  Clock,
+  MapPin,
+  ArrowUpRight,
+} from "lucide-react";
 
-const upcomingVisits = [
-  {
-    date: "26",
-    month: "AUG",
-    day: "Wednesday",
-    time: "10:00 AM",
-    location: "Masii Ward",
-    title: "Water Project Launch",
-    description:
-      "A constituency development engagement focused on the launch of a new water project serving residents of Masii Ward.",
-  },
-];
+import { visits } from "../app/data/visits";
 
 export default function Visits() {
+  const upcomingVisits = visits.filter(
+    (visit) => visit.status === "upcoming",
+  );
+
   return (
     <section
       id="visits"
@@ -34,8 +33,8 @@ export default function Visits() {
             </h2>
 
             <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600">
-              Follow upcoming constituency visits, project launches and public
-              engagements across Mwala.
+              Follow upcoming constituency visits, project launches and
+              public engagements across Mwala.
             </p>
           </div>
 
@@ -44,11 +43,12 @@ export default function Visits() {
           </div>
         </div>
 
-        {/* Upcoming visit */}
+        {/* Upcoming visits */}
         {upcomingVisits.map((visit) => (
-          <article
+          <Link
             key={`${visit.date}-${visit.title}`}
-            className="group overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+            href={`/visits/${visit.id}`}
+            className="group block overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             <div className="grid lg:grid-cols-[220px_1fr]">
               {/* Date */}
@@ -57,6 +57,7 @@ export default function Visits() {
                   <p className="text-5xl font-bold tracking-tight">
                     {visit.date}
                   </p>
+
                   <p className="mt-1 text-sm font-semibold tracking-[0.2em] text-slate-400">
                     {visit.month}
                   </p>
@@ -101,6 +102,7 @@ export default function Visits() {
                       <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                         Time
                       </p>
+
                       <p className="mt-1 font-semibold text-slate-800">
                         {visit.time}
                       </p>
@@ -116,6 +118,7 @@ export default function Visits() {
                       <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
                         Location
                       </p>
+
                       <p className="mt-1 font-semibold text-slate-800">
                         {visit.location}
                       </p>
@@ -124,7 +127,7 @@ export default function Visits() {
                 </div>
               </div>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

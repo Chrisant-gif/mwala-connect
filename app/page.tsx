@@ -1,7 +1,9 @@
+import Engagements from "../components/Engagements";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import Projects from "./components/Projects";
+import Visits from "../components/Visits";
 
 export default function Home() {
   return (
@@ -13,6 +15,10 @@ export default function Home() {
       <Stats />
 
       <Projects />
+
+      <Engagements />
+
+      <Visits />
 
       <footer className="site-footer">
         <div className="footer-inner">

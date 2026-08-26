@@ -9,6 +9,8 @@ import {
 
 import { projects } from "../../data/projects";
 
+import { projectMedia } from "../../data/project-media";
+
 interface ProjectDetailsPageProps {
   params: Promise<{
     id: string;
@@ -183,37 +185,77 @@ export default async function ProjectDetailsPage({
         </section>
 
         {/* Verification status */}
-        <section className="mt-8 rounded-3xl border border-blue-400/20 bg-blue-400/[0.05] p-6 sm:p-8">
-          <div className="flex items-start gap-4">
-            {isVerified ? (
-              <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
+        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+  <div>
+    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+      Project Media
+    </p>
+
+    <h2 className="mt-2 text-2xl font-semibold text-white">
+      Field documentation
+    </h2>
+
+    <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
+      Photographs, video and supporting documentation will be added
+      as verified project material becomes available.
+    </p>
+  </div>
+
+  {projectMedia.filter(
+    (media) => media.projectId === project.id,
+  ).length > 0 ? (
+    <div className="mt-8 grid gap-5 sm:grid-cols-2">
+      {projectMedia
+        .filter((media) => media.projectId === project.id)
+        .map((media) => (
+          <div
+            key={media.id}
+            className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+          >
+            {media.url ? (
+              <div className="aspect-video bg-white/5">
+                {/* Media will be rendered here once a verified URL is available. */}
+              </div>
             ) : (
-              <Clock3 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
+              <div className="flex aspect-video items-center justify-center bg-white/[0.02] px-6 text-center">
+                <div>
+                  <p className="text-sm font-semibold text-slate-300">
+                    {media.title}
+                  </p>
+
+                  <p className="mt-2 text-xs leading-6 text-slate-500">
+                    Media awaiting upload
+                  </p>
+                </div>
+              </div>
             )}
 
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wider text-blue-300">
-                Information status
+            <div className="p-5">
+              <p className="text-sm font-semibold text-white">
+                {media.title}
               </p>
 
-              <h2 className="mt-2 text-xl font-semibold">
-                {verificationLabel}
-              </h2>
-
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
-                Project information is presented according to the
-                current source and verification status. Details will
-                be updated when supporting records are confirmed.
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                {media.description}
               </p>
 
-              {project.lastVerified && (
+              {media.date && (
                 <p className="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">
-                  Last verified: {project.lastVerified}
+                  {media.date}
                 </p>
               )}
             </div>
           </div>
-        </section>
+        ))}
+    </div>
+  ) : (
+    <div className="mt-8 rounded-2xl border border-dashed border-white/10 p-8 text-center">
+      <p className="text-sm text-slate-500">
+        No project media has been added yet.
+      </p>
+    </div>
+  )}
+</section>
 
         {/* Project metrics */}
         <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

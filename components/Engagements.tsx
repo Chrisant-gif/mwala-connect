@@ -2,40 +2,15 @@
 
 import { CalendarDays, MapPin, ArrowUpRight } from "lucide-react";
 
-const engagements = [
-  {
-    date: "Upcoming",
-    title: "Water Project Launch",
-    location: "Masii Ward",
-    description:
-      "Constituency engagement during the launch of a community water project.",
-    featured: true,
-  },
-  {
-    date: "Recent",
-    title: "Community Engagement",
-    location: "Mwala Constituency",
-    description:
-      "Meeting with residents and community representatives to discuss local priorities.",
-    featured: false,
-  },
-  {
-    date: "Recent",
-    title: "Development Project Visit",
-    location: "Mwala Constituency",
-    description:
-      "Site visit to review progress and engage with residents around an ongoing development project.",
-    featured: false,
-  },
-];
+import { engagements } from "../app/data/engagements";
 
 export default function Engagements() {
   const featuredEngagement = engagements.find(
-    (engagement) => engagement.featured
+    (engagement) => engagement.status === "upcoming"
   );
 
-  const otherEngagements = engagements.filter(
-    (engagement) => !engagement.featured
+  const pastEngagements = engagements.filter(
+    (engagement) => engagement.status === "completed"
   );
 
   return (
@@ -52,7 +27,9 @@ export default function Engagements() {
 
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Connected with the
-            <span className="block text-slate-400">people of Mwala.</span>
+            <span className="block text-slate-400">
+              people of Mwala.
+            </span>
           </h2>
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">
@@ -102,35 +79,58 @@ export default function Engagements() {
           </div>
         )}
 
-        {/* Engagement cards */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {otherEngagements.map((engagement) => (
-            <article
-              key={engagement.title}
-              className="group rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:p-8"
-            >
-              <div className="mb-6 flex items-center justify-between gap-4">
-                <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-slate-300">
+        {/* Engagement history */}
+        <div>
+          <div className="mb-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Engagement History
+            </p>
+
+            <h3 className="mt-2 text-2xl font-bold sm:text-3xl">
+              Recent engagements
+            </h3>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {pastEngagements.map((engagement) => (
+              <article
+                key={engagement.id}
+                className="group rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.05] sm:p-8"
+              >
+                <div className="mb-6 flex items-center justify-between gap-4">
+                  <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-slate-300">
+                    {engagement.type}
+                  </span>
+
+                  <ArrowUpRight className="h-5 w-5 text-slate-500 transition group-hover:text-white" />
+                </div>
+
+                <h3 className="text-2xl font-semibold">
+                  {engagement.title}
+                </h3>
+
+                <div className="mt-4 flex flex-col gap-2 text-sm text-blue-400 sm:flex-row sm:gap-5">
+                  <span className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    {engagement.location}
+                  </span>
+
+                  <span className="text-slate-500">
+                    {engagement.ward} Ward
+                  </span>
+                </div>
+
+                <p className="mt-5 text-sm leading-7 text-slate-400">
+                  {engagement.description}
+                </p>
+
+                <div className="mt-6 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-500">
+                  <CalendarDays className="h-4 w-4" />
                   {engagement.date}
-                </span>
-
-                <ArrowUpRight className="h-5 w-5 text-slate-500 transition group-hover:text-white" />
-              </div>
-
-              <h3 className="text-2xl font-semibold">
-                {engagement.title}
-              </h3>
-
-              <div className="mt-4 flex items-center gap-2 text-sm text-blue-400">
-                <MapPin className="h-4 w-4" />
-                {engagement.location}
-              </div>
-
-              <p className="mt-5 text-sm leading-7 text-slate-400">
-                {engagement.description}
-              </p>
-            </article>
-          ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,13 @@
-export type VisitStatus = "upcoming" | "completed";
+export type VisitType =
+  | "project_launch"
+  | "site_visit"
+  | "community_engagement"
+  | "public_event";
+
+export type VisitStatus =
+  | "upcoming"
+  | "ongoing"
+  | "completed";
 
 export interface Visit {
   id: number;
@@ -10,6 +19,7 @@ export interface Visit {
   ward: string;
   title: string;
   description: string;
+  type: VisitType;
   status: VisitStatus;
 }
 
@@ -25,6 +35,7 @@ export const visits: Visit[] = [
     title: "Water Project Launch",
     description:
       "A constituency development engagement focused on the launch of a new water project serving residents of Masii Ward.",
+    type: "project_launch",
     status: "upcoming",
   },
 ];

@@ -2,6 +2,7 @@ import Engagements from "../components/Engagements";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
+import AllocationHistory from "./components/AllocationHistory";
 import Projects from "./components/Projects";
 import Visits from "../components/Visits";
 
@@ -13,6 +14,8 @@ export default function Home() {
       <Hero />
 
       <Stats />
+
+      <AllocationHistory />
 
       <Projects />
 

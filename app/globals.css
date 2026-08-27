@@ -1250,3 +1250,194 @@ button {
     white-space: normal;
   }
 }
+/* =========================================
+   ALLOCATION HISTORY
+========================================= */
+
+.allocation-history-section {
+  width: 100%;
+  padding: 120px max(24px, calc((100vw - 1400px) / 2));
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.allocation-history-inner {
+  width: 100%;
+  min-width: 0;
+}
+
+.allocation-history-header {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: end;
+  padding-bottom: 70px;
+}
+
+.allocation-history-header h2 {
+  margin: 0;
+  font-size: clamp(48px, 6vw, 94px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  overflow-wrap: normal;
+}
+
+.allocation-history-header h2 span {
+  color: var(--muted);
+}
+
+.allocation-history-intro {
+  max-width: 520px;
+}
+
+.allocation-history-intro > p {
+  margin: 0;
+  color: #555850;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.allocation-history-list {
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.allocation-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 30px;
+  min-height: 92px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.allocation-index {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.allocation-year {
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.allocation-amount {
+  color: var(--green);
+  font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.allocation-row:first-child {
+  background: rgba(22, 63, 43, 0.045);
+}
+
+.allocation-row:first-child .allocation-year {
+  color: var(--orange);
+}
+
+.allocation-history-source {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.allocation-history-source p {
+  margin: 0;
+}
+
+/* =========================================
+   ALLOCATION HISTORY — TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .allocation-history-header {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-bottom: 50px;
+  }
+
+  .allocation-history-intro {
+    max-width: 600px;
+  }
+
+  .allocation-row {
+    grid-template-columns: 60px 1fr auto;
+    gap: 20px;
+  }
+}
+
+/* =========================================
+   ALLOCATION HISTORY — MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .allocation-history-section {
+    padding: 90px 16px 80px;
+  }
+
+  .allocation-history-header {
+    gap: 30px;
+    padding-bottom: 45px;
+  }
+
+  .allocation-history-header h2 {
+    max-width: 100%;
+    font-size: clamp(48px, 15vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .allocation-history-intro > p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .allocation-row {
+    grid-template-columns: 34px 1fr;
+    gap: 12px;
+    min-height: auto;
+    padding: 20px 0;
+  }
+
+  .allocation-index {
+    align-self: start;
+    padding-top: 4px;
+  }
+
+  .allocation-year {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .allocation-amount {
+    grid-column: 2;
+    margin-top: -2px;
+    font-size: clamp(20px, 7vw, 30px);
+    line-height: 1.1;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .allocation-history-source {
+    font-size: 9px;
+    line-height: 1.7;
+  }
+}

@@ -26,17 +26,17 @@ const statistics = [
 const developmentStatus = [
   {
     number: "01",
-    value: constituencyStatistics.ongoingProjects,
+    value: String(constituencyStatistics.ongoingProjects).padStart(2, "0"),
     label: "Ongoing",
   },
   {
     number: "02",
-    value: constituencyStatistics.completedProjects,
+    value: String(constituencyStatistics.completedProjects).padStart(2, "0"),
     label: "Completed",
   },
   {
     number: "03",
-    value: constituencyStatistics.pendingProjects,
+    value: String(constituencyStatistics.pendingProjects).padStart(2, "0"),
     label: "Pending",
   },
 ];
@@ -77,11 +77,10 @@ export default function Stats() {
         <div className="stats-intro">
           <span>MWALA AT A GLANCE</span>
 
-          <span>
-            FY {constituencyStatistics.financialYear}
-          </span>
+          <span>FY {constituencyStatistics.financialYear}</span>
         </div>
 
+        {/* Main Statistics */}
         <div className="stats-grid">
           {statistics.map((stat) => (
             <article className="stat-card" key={stat.number}>
@@ -95,27 +94,18 @@ export default function Stats() {
         </div>
 
         {/* Development Status */}
-        <div className="financial-overview">
+        <div className="development-status">
           <div className="financial-heading">
             <span>DEVELOPMENT STATUS</span>
 
-            <span>
-              CURRENT PROJECT RECORDS
-            </span>
+            <span>CURRENT PROJECT RECORDS</span>
           </div>
 
-          <p
-            style={{
-              margin: "24px 0 0",
-              color: "rgba(255, 255, 255, 0.52)",
-              fontSize: "13px",
-              lineHeight: "1.7",
-            }}
-          >
+          <p className="development-status-description">
             Current project records by implementation stage.
           </p>
 
-          <div className="stats-grid" style={{ marginTop: "24px" }}>
+          <div className="stats-grid development-status-grid">
             {developmentStatus.map((stat) => (
               <article className="stat-card" key={stat.number}>
                 <span className="stat-index">{stat.number}</span>
@@ -128,7 +118,7 @@ export default function Stats() {
           </div>
 
           {/* Financial Overview */}
-          <div style={{ paddingTop: "70px" }}>
+          <div className="financial-overview">
             <div className="financial-heading">
               <span>PUBLIC INVESTMENT</span>
 
@@ -150,8 +140,8 @@ export default function Stats() {
                 <span className="source-dot" />
 
                 <p>
-                  Official financial figures will be published here
-                  once verified against the relevant public records.
+                  Official financial figures will be published here once
+                  verified against the relevant public records.
                 </p>
               </div>
             </div>

@@ -27,18 +27,11 @@ const pendingProjects = projects.filter(
 
 export const constituencyStatistics: ConstituencyStatistics = {
   wards: 6,
-
   projects: totalProjects,
-
   completedProjects,
-
   ongoingProjects,
-
   pendingProjects,
-
   residentsServed: "To be verified",
-
-  totalAllocation: "To be verified",
-
+  totalAllocation: "KSh 202,243,910",
   financialYear: "2026 / 2027",
 };

@@ -26,17 +26,17 @@ const statistics = [
 const developmentStatus = [
   {
     number: "01",
-    value: String(constituencyStatistics.ongoingProjects).padStart(2, "0"),
+    value: constituencyStatistics.ongoingProjects,
     label: "Ongoing",
   },
   {
     number: "02",
-    value: String(constituencyStatistics.completedProjects).padStart(2, "0"),
+    value: constituencyStatistics.completedProjects,
     label: "Completed",
   },
   {
     number: "03",
-    value: String(constituencyStatistics.pendingProjects).padStart(2, "0"),
+    value: constituencyStatistics.pendingProjects,
     label: "Pending",
   },
 ];
@@ -77,10 +77,11 @@ export default function Stats() {
         <div className="stats-intro">
           <span>MWALA AT A GLANCE</span>
 
-          <span>FY {constituencyStatistics.financialYear}</span>
+          <span>
+            FY {constituencyStatistics.financialYear}
+          </span>
         </div>
 
-        {/* Main Statistics */}
         <div className="stats-grid">
           {statistics.map((stat) => (
             <article className="stat-card" key={stat.number}>
@@ -94,18 +95,28 @@ export default function Stats() {
         </div>
 
         {/* Development Status */}
-        <div className="development-status">
+        <div className="financial-overview">
           <div className="financial-heading">
             <span>DEVELOPMENT STATUS</span>
 
             <span>CURRENT PROJECT RECORDS</span>
           </div>
 
-          <p className="development-status-description">
+          <p
+            style={{
+              margin: "24px 0 0",
+              color: "rgba(255, 255, 255, 0.52)",
+              fontSize: "13px",
+              lineHeight: "1.7",
+            }}
+          >
             Current project records by implementation stage.
           </p>
 
-          <div className="stats-grid development-status-grid">
+          <div
+            className="stats-grid"
+            style={{ marginTop: "24px" }}
+          >
             {developmentStatus.map((stat) => (
               <article className="stat-card" key={stat.number}>
                 <span className="stat-index">{stat.number}</span>
@@ -117,8 +128,8 @@ export default function Stats() {
             ))}
           </div>
 
-          {/* Financial Overview */}
-          <div className="financial-overview">
+          {/* Public Investment */}
+          <div style={{ paddingTop: "70px" }}>
             <div className="financial-heading">
               <span>PUBLIC INVESTMENT</span>
 
@@ -140,8 +151,8 @@ export default function Stats() {
                 <span className="source-dot" />
 
                 <p>
-                  Official financial figures will be published here once
-                  verified against the relevant public records.
+                  Official allocation for FY 2026 / 2027 as published
+                  by NGCDF Mwala Constituency.
                 </p>
               </div>
             </div>

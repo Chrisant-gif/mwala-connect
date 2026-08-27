@@ -1,3 +1,5 @@
+import { projects } from "./projects";
+
 export interface ConstituencyStatistics {
   wards: number;
   projects: number;
@@ -9,16 +11,30 @@ export interface ConstituencyStatistics {
   financialYear: string;
 }
 
+const totalProjects = projects.length;
+
+const completedProjects = projects.filter(
+  (project) => project.status === "completed",
+).length;
+
+const ongoingProjects = projects.filter(
+  (project) => project.status === "ongoing",
+).length;
+
+const pendingProjects = projects.filter(
+  (project) => project.status === "pending",
+).length;
+
 export const constituencyStatistics: ConstituencyStatistics = {
   wards: 6,
 
-  projects: 0,
+  projects: totalProjects,
 
-  completedProjects: 0,
+  completedProjects,
 
-  ongoingProjects: 0,
+  ongoingProjects,
 
-  pendingProjects: 0,
+  pendingProjects,
 
   residentsServed: "To be verified",
 

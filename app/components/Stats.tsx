@@ -41,14 +41,7 @@ const developmentStatus = [
   },
 ];
 
-function formatProjectCount(value: number) {
-  return value > 0 ? String(value) : "—";
-}
-
 export default function Stats() {
-  const allocationIsVerified =
-    constituencyStatistics.totalAllocation !== "To be verified";
-
   return (
     <>
       {/* Overview */}
@@ -73,7 +66,6 @@ export default function Stats() {
 
           <div className="source-note">
             <span className="source-dot" />
-
             Development information is being organised by project, ward and
             implementation status.
           </div>
@@ -103,69 +95,65 @@ export default function Stats() {
         </div>
 
         {/* Development Status */}
-        <div className="development-status">
-          <div className="development-status-heading">
-            <div>
-              <span>DEVELOPMENT STATUS</span>
-
-              <p>
-                Current project records by implementation stage.
-              </p>
-            </div>
-
-            <span>PROJECTS</span>
-          </div>
-
-          <div className="development-status-grid">
-            {developmentStatus.map((item) => (
-              <article
-                className="development-status-card"
-                key={item.number}
-              >
-                <span className="stat-index">{item.number}</span>
-
-                <strong>
-                  {formatProjectCount(item.value)}
-                </strong>
-
-                <span>{item.label}</span>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        {/* Financial Overview */}
         <div className="financial-overview">
           <div className="financial-heading">
-            <span>PUBLIC INVESTMENT</span>
+            <span>DEVELOPMENT STATUS</span>
 
             <span>
-              FY {constituencyStatistics.financialYear}
+              CURRENT PROJECT RECORDS
             </span>
           </div>
 
-          <div className="financial-main">
-            <div>
-              <span>Total allocation</span>
+          <p
+            style={{
+              margin: "24px 0 0",
+              color: "rgba(255, 255, 255, 0.52)",
+              fontSize: "13px",
+              lineHeight: "1.7",
+            }}
+          >
+            Current project records by implementation stage.
+          </p>
 
-              {allocationIsVerified ? (
+          <div className="stats-grid" style={{ marginTop: "24px" }}>
+            {developmentStatus.map((stat) => (
+              <article className="stat-card" key={stat.number}>
+                <span className="stat-index">{stat.number}</span>
+
+                <strong>{stat.value}</strong>
+
+                <span>{stat.label}</span>
+              </article>
+            ))}
+          </div>
+
+          {/* Financial Overview */}
+          <div style={{ paddingTop: "70px" }}>
+            <div className="financial-heading">
+              <span>PUBLIC INVESTMENT</span>
+
+              <span>
+                FY {constituencyStatistics.financialYear}
+              </span>
+            </div>
+
+            <div className="financial-main">
+              <div>
+                <span>Total allocation</span>
+
                 <strong>
                   {constituencyStatistics.totalAllocation}
                 </strong>
-              ) : (
-                <p className="financial-pending">
-                  To be verified
+              </div>
+
+              <div className="financial-status">
+                <span className="source-dot" />
+
+                <p>
+                  Official financial figures will be published here
+                  once verified against the relevant public records.
                 </p>
-              )}
-            </div>
-
-            <div className="financial-status">
-              <span className="source-dot" />
-
-              <p>
-                Official financial figures will be published here
-                once verified against the relevant public records.
-              </p>
+              </div>
             </div>
           </div>
         </div>

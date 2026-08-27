@@ -11,6 +11,7 @@ export type VisitStatus =
 
 export interface Visit {
   id: number;
+  projectId?: number;
   date: string;
   month: string;
   day: string;
@@ -26,6 +27,7 @@ export interface Visit {
 export const visits: Visit[] = [
   {
     id: 1,
+    projectId: 1,
     date: "26",
     month: "AUG",
     day: "Wednesday",

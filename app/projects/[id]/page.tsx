@@ -5,11 +5,12 @@ import {
   CheckCircle2,
   Clock3,
   MapPin,
+  ArrowUpRight,
 } from "lucide-react";
 
 import { projects } from "../../data/projects";
-
 import { projectMedia } from "../../data/project-media";
+import { visits } from "../../data/visits";
 
 interface ProjectDetailsPageProps {
   params: Promise<{
@@ -99,6 +100,10 @@ export default async function ProjectDetailsPage({
   const isVerified =
     project.verificationStatus === "verified";
 
+  const relatedVisits = visits.filter(
+    (visit) => visit.projectId === project.id,
+  );
+
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-16 text-white sm:px-10 lg:px-16">
       <div className="mx-auto max-w-5xl">
@@ -185,77 +190,110 @@ export default async function ProjectDetailsPage({
         </section>
 
         {/* Verification status */}
-        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-  <div>
-    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-      Project Media
-    </p>
-
-    <h2 className="mt-2 text-2xl font-semibold text-white">
-      Field documentation
-    </h2>
-
-    <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
-      Photographs, video and supporting documentation will be added
-      as verified project material becomes available.
-    </p>
-  </div>
-
-  {projectMedia.filter(
-    (media) => media.projectId === project.id,
-  ).length > 0 ? (
-    <div className="mt-8 grid gap-5 sm:grid-cols-2">
-      {projectMedia
-        .filter((media) => media.projectId === project.id)
-        .map((media) => (
-          <div
-            key={media.id}
-            className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
-          >
-            {media.url ? (
-              <div className="aspect-video bg-white/5">
-                {/* Media will be rendered here once a verified URL is available. */}
-              </div>
+        <section className="mt-8 rounded-3xl border border-blue-400/20 bg-blue-400/[0.05] p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            {isVerified ? (
+              <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
             ) : (
-              <div className="flex aspect-video items-center justify-center bg-white/[0.02] px-6 text-center">
-                <div>
-                  <p className="text-sm font-semibold text-slate-300">
-                    {media.title}
-                  </p>
-
-                  <p className="mt-2 text-xs leading-6 text-slate-500">
-                    Media awaiting upload
-                  </p>
-                </div>
-              </div>
+              <Clock3 className="mt-0.5 h-6 w-6 shrink-0 text-blue-400" />
             )}
 
-            <div className="p-5">
-              <p className="text-sm font-semibold text-white">
-                {media.title}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
+                Information Status
               </p>
 
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                {media.description}
+              <h2 className="mt-2 text-xl font-semibold text-white">
+                {verificationLabel}
+              </h2>
+
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">
+                Project information is presented according to the
+                current source and verification status. Details will
+                be updated when supporting records are confirmed.
               </p>
 
-              {media.date && (
+              {project.lastVerified && (
                 <p className="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">
-                  {media.date}
+                  Last verified: {project.lastVerified}
                 </p>
               )}
             </div>
           </div>
-        ))}
-    </div>
-  ) : (
-    <div className="mt-8 rounded-2xl border border-dashed border-white/10 p-8 text-center">
-      <p className="text-sm text-slate-500">
-        No project media has been added yet.
-      </p>
-    </div>
-  )}
-</section>
+        </section>
+
+        {/* Project Media */}
+        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Project Media
+            </p>
+
+            <h2 className="mt-2 text-2xl font-semibold text-white">
+              Field documentation
+            </h2>
+
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
+              Photographs, video and supporting documentation will be added
+              as verified project material becomes available.
+            </p>
+          </div>
+
+          {projectMedia.filter(
+            (media) => media.projectId === project.id,
+          ).length > 0 ? (
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              {projectMedia
+                .filter((media) => media.projectId === project.id)
+                .map((media) => (
+                  <div
+                    key={media.id}
+                    className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
+                  >
+                    {media.url ? (
+                      <div className="aspect-video bg-white/5">
+                        {/* Media will be rendered here once a verified URL is available. */}
+                      </div>
+                    ) : (
+                      <div className="flex aspect-video items-center justify-center bg-white/[0.02] px-6 text-center">
+                        <div>
+                          <p className="text-sm font-semibold text-slate-300">
+                            {media.title}
+                          </p>
+
+                          <p className="mt-2 text-xs leading-6 text-slate-500">
+                            Media awaiting upload
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="p-5">
+                      <p className="text-sm font-semibold text-white">
+                        {media.title}
+                      </p>
+
+                      <p className="mt-2 text-sm leading-6 text-slate-400">
+                        {media.description}
+                      </p>
+
+                      {media.date && (
+                        <p className="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">
+                          {media.date}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <div className="mt-8 rounded-2xl border border-dashed border-white/10 p-8 text-center">
+              <p className="text-sm text-slate-500">
+                No project media has been added yet.
+              </p>
+            </div>
+          )}
+        </section>
 
         {/* Project metrics */}
         <section className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -288,6 +326,82 @@ export default async function ProjectDetailsPage({
               {project.ward}
             </p>
           </div>
+        </section>
+
+        {/* Related Engagements */}
+        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
+                Constituency Engagements
+              </p>
+
+              <h2 className="mt-2 text-2xl font-semibold text-white">
+                Related engagements
+              </h2>
+
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400">
+                Visits and public engagements connected to this project.
+              </p>
+            </div>
+
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {relatedVisits.length}{" "}
+              {relatedVisits.length === 1 ? "engagement" : "engagements"}
+            </span>
+          </div>
+
+          {relatedVisits.length > 0 ? (
+            <div className="mt-8 space-y-4">
+              {relatedVisits.map((visit) => (
+                <Link
+                  key={visit.id}
+                  href={`/visits/${visit.id}`}
+                  className="group block rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition hover:border-blue-400/30 hover:bg-white/[0.04]"
+                >
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                        {visit.type.replaceAll("_", " ")}
+                      </p>
+
+                      <h3 className="mt-2 text-xl font-semibold text-white">
+                        {visit.title}
+                      </h3>
+
+                      <div className="mt-3 flex flex-col gap-2 text-sm text-slate-400 sm:flex-row sm:gap-5">
+                        <span className="flex items-center gap-2">
+                          <CalendarDays className="h-4 w-4 text-blue-400" />
+                          {visit.date} {visit.month} · {visit.day}
+                        </span>
+
+                        <span className="flex items-center gap-2">
+                          <Clock3 className="h-4 w-4 text-blue-400" />
+                          {visit.time}
+                        </span>
+
+                        <span className="flex items-center gap-2">
+                          <MapPin className="h-4 w-4 text-blue-400" />
+                          {visit.location}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex shrink-0 items-center gap-2 text-sm font-semibold text-blue-300">
+                      View engagement
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-8 rounded-2xl border border-dashed border-white/10 p-8 text-center">
+              <p className="text-sm text-slate-500">
+                No engagements have been linked to this project yet.
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Project timeline */}

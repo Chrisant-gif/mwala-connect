@@ -1,13 +1,15 @@
 import Link from "next/link";
 import {
   ArrowLeft,
+  ArrowUpRight,
   CalendarDays,
-  Clock,
+  CheckCircle2,
+  Clock3,
   MapPin,
-  Tag,
 } from "lucide-react";
 
 import { visits } from "../../data/visits";
+import { projects } from "../../data/projects";
 
 interface VisitDetailsPageProps {
   params: Promise<{
@@ -15,9 +17,26 @@ interface VisitDetailsPageProps {
   }>;
 }
 
-function getStatusLabel(
-  status: "upcoming" | "ongoing" | "completed",
-) {
+function getVisitTypeLabel(type: string) {
+  switch (type) {
+    case "project_launch":
+      return "Project Launch";
+
+    case "site_visit":
+      return "Site Visit";
+
+    case "community_engagement":
+      return "Community Engagement";
+
+    case "public_event":
+      return "Public Event";
+
+    default:
+      return type.replaceAll("_", " ");
+  }
+}
+
+function getStatusLabel(status: string) {
   switch (status) {
     case "upcoming":
       return "Upcoming";
@@ -33,31 +52,6 @@ function getStatusLabel(
   }
 }
 
-function getTypeLabel(
-  type:
-    | "project_launch"
-    | "site_visit"
-    | "community_engagement"
-    | "public_event",
-) {
-  switch (type) {
-    case "project_launch":
-      return "Project Launch";
-
-    case "site_visit":
-      return "Site Visit";
-
-    case "community_engagement":
-      return "Community Engagement";
-
-    case "public_event":
-      return "Public Event";
-
-    default:
-      return type;
-  }
-}
-
 export default async function VisitDetailsPage({
   params,
 }: VisitDetailsPageProps) {
@@ -69,212 +63,275 @@ export default async function VisitDetailsPage({
 
   if (!visit) {
     return (
-      <main className="min-h-screen bg-slate-950 px-6 py-24 text-white">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-            Constituency Engagements
-          </p>
+      <main className="visit-record-page">
+        <section className="visit-record-not-found">
+          <div>
+            <p className="section-kicker">
+              Constituency Engagements
+            </p>
 
-          <h1 className="mt-4 text-4xl font-bold">
-            Visit not found
-          </h1>
+            <h1>
+              VISIT
+              <br />
+              NOT FOUND.
+            </h1>
 
-          <p className="mt-4 text-slate-400">
-            The engagement record you are looking for could not be
-            found.
-          </p>
+            <p>
+              The engagement record you are looking for could not
+              be found.
+            </p>
 
-          <Link
-            href="/#visits"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold !text-slate-950 transition hover:bg-slate-200"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Visits
-          </Link>
-        </div>
+            <Link
+              href="/#visits"
+              className="visit-record-button"
+            >
+              <ArrowLeft size={16} />
+              Back to Engagements
+            </Link>
+          </div>
+        </section>
       </main>
     );
   }
 
+  const relatedProject = visit.projectId
+    ? projects.find(
+        (project) => project.id === visit.projectId,
+      )
+    : undefined;
+
   const statusLabel = getStatusLabel(visit.status);
-  const typeLabel = getTypeLabel(visit.type);
+  const typeLabel = getVisitTypeLabel(visit.type);
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-5xl">
-        {/* Back link */}
-        <Link
-          href="/#visits"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 transition hover:text-white"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Visits
-        </Link>
+    <main className="visit-record-page">
+      {/* Header */}
+      <header className="visit-record-header">
+        <div className="visit-record-header-inner">
+          <Link
+            href="/#visits"
+            className="visit-record-back"
+          >
+            <ArrowLeft size={15} />
+            <span>Back to Engagements</span>
+          </Link>
 
-        {/* Header */}
-        <header className="mt-12">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-blue-300">
+          <span className="visit-record-header-label">
+            ENGAGEMENT RECORD
+          </span>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="visit-record-hero">
+        <div className="visit-record-inner">
+          <div className="visit-record-top">
+            <span>
+              ENGAGEMENT {String(visit.id).padStart(2, "0")}
+            </span>
+
+            <span className="visit-record-status">
+              <span />
               {statusLabel}
             </span>
+          </div>
 
-            <span className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
+          <div className="visit-record-hero-content">
+            <p className="visit-record-type">
               {typeLabel}
-            </span>
+            </p>
+
+            <h1>{visit.title}</h1>
+
+            <p className="visit-record-description">
+              {visit.description}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Schedule */}
+      <section className="visit-record-section">
+        <div className="visit-record-inner">
+          <div className="visit-record-section-heading">
+            <span>01 / ENGAGEMENT SCHEDULE</span>
           </div>
 
-          <h1 className="mt-7 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            {visit.title}
-          </h1>
+          <div className="visit-record-schedule">
+            <article className="visit-record-date-card">
+              <span>DATE</span>
 
-          <div className="mt-5 flex flex-col gap-3 text-sm text-slate-400 sm:flex-row sm:items-center sm:gap-5">
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-blue-400" />
-              <span>{visit.location}</span>
-            </div>
+              <strong>{visit.date}</strong>
 
-            <span className="hidden text-slate-700 sm:block">
-              /
-            </span>
+              <b>{visit.month}</b>
 
-            <span>{visit.ward} Ward</span>
+              <small>{visit.day}</small>
+            </article>
+
+            <article>
+              <CalendarDays size={19} />
+
+              <span>Date</span>
+
+              <strong>
+                {visit.date} {visit.month} · {visit.day}
+              </strong>
+            </article>
+
+            <article>
+              <Clock3 size={19} />
+
+              <span>Time</span>
+
+              <strong>{visit.time}</strong>
+            </article>
+
+            <article>
+              <MapPin size={19} />
+
+              <span>Location</span>
+
+              <strong>{visit.location}</strong>
+            </article>
           </div>
+        </div>
+      </section>
 
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-400">
-            {visit.description}
-          </p>
-        </header>
+      {/* Location & Ward */}
+      <section className="visit-record-section visit-record-section-green">
+        <div className="visit-record-inner">
+          <div className="visit-record-location-block">
+            <div>
+              <span>FIELD LOCATION</span>
 
-        {/* Date highlight */}
-        <section className="mt-12 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-          <div className="grid md:grid-cols-[180px_1fr]">
-            <div className="flex flex-row items-center gap-5 bg-white/[0.04] p-7 md:flex-col md:items-start md:justify-center">
-              <div>
-                <p className="text-5xl font-bold tracking-tight">
-                  {visit.date}
-                </p>
+              <h2>{visit.location}</h2>
 
-                <p className="mt-1 text-sm font-semibold tracking-[0.2em] text-blue-400">
-                  {visit.month}
-                </p>
-              </div>
-
-              <div className="h-px w-12 bg-white/10 md:w-16" />
-
-              <p className="text-sm font-medium text-slate-400">
-                {visit.day}
+              <p>
+                {visit.ward} Ward · Mwala Constituency ·
+                Machakos County
               </p>
             </div>
 
-            <div className="flex items-center p-7 sm:p-9">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                  Scheduled engagement
-                </p>
+            <div className="visit-record-location-icon">
+              <MapPin size={30} />
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <p className="mt-3 text-2xl font-semibold">
-                  {visit.title}
-                </p>
+      {/* Engagement Overview */}
+      <section className="visit-record-section">
+        <div className="visit-record-inner">
+          <div className="visit-record-section-heading">
+            <span>02 / ENGAGEMENT OVERVIEW</span>
+          </div>
 
-                <p className="mt-2 text-sm text-slate-500">
-                  {statusLabel} · {typeLabel}
-                </p>
+          <div className="visit-record-overview">
+            <div>
+              <p className="section-kicker">
+                Why this engagement matters
+              </p>
+
+              <h2>
+                DEVELOPMENT
+                <br />
+                <span>IN THE FIELD.</span>
+              </h2>
+            </div>
+
+            <div>
+              <p>
+                {visit.description}
+              </p>
+
+              <div className="visit-record-source">
+                <span />
+                <span>
+                  Mwala Connect · Constituency Engagement Record
+                </span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related Project */}
+      {relatedProject && (
+        <section className="visit-record-section">
+          <div className="visit-record-inner">
+            <div className="visit-record-section-heading">
+              <span>03 / RELATED PROJECT</span>
+            </div>
+
+            <Link
+              href={`/projects/${relatedProject.id}`}
+              className="visit-record-project"
+            >
+              <div>
+                <span>
+                  {relatedProject.location} ·{" "}
+                  {relatedProject.ward}
+                </span>
+
+                <h2>{relatedProject.title}</h2>
+
+                <p>
+                  {relatedProject.description}
+                </p>
+              </div>
+
+              <div className="visit-record-project-arrow">
+                <ArrowUpRight size={21} />
+              </div>
+            </Link>
           </div>
         </section>
+      )}
 
-        {/* Visit details */}
-        <section className="mt-8 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-blue-400" />
+      {/* Information Status */}
+      <section className="visit-record-section visit-record-status-section">
+        <div className="visit-record-inner">
+          <div className="visit-record-verification">
+            <CheckCircle2 size={24} />
 
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Date
-                </p>
+            <div>
+              <span>ENGAGEMENT STATUS</span>
 
-                <p className="mt-1 text-sm font-medium text-white">
-                  {visit.date} {visit.month} · {visit.day}
-                </p>
-              </div>
+              <h2>{statusLabel}</h2>
+
+              <p>
+                This engagement record reflects the current
+                schedule information available to Mwala Connect.
+                Details may be updated as the field schedule
+                develops.
+              </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3">
-              <Clock className="h-5 w-5 text-blue-400" />
+      {/* Footer */}
+      <footer className="visit-record-footer">
+        <div className="visit-record-inner">
+          <div>
+            <span>MWALA CONNECT</span>
 
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Time
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-white">
-                  {visit.time}
-                </p>
-              </div>
-            </div>
+            <h2>
+              FOLLOW THE
+              <br />
+              <em>ENGAGEMENT.</em>
+            </h2>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-blue-400" />
-
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Location
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-white">
-                  {visit.location}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3">
-              <Tag className="h-5 w-5 text-blue-400" />
-
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Engagement Type
-                </p>
-
-                <p className="mt-1 text-sm font-medium text-white">
-                  {typeLabel}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Visit information */}
-        <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Engagement Information
-          </p>
-
-          <p className="mt-3 text-base leading-8 text-slate-400">
-            This engagement is part of the constituency's ongoing
-            programme of community engagements, project launches and
-            public activities.
-          </p>
-        </section>
-
-        {/* Media */}
-        <section className="mt-8 rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-            Visit Media
-          </p>
-
-          <p className="mt-3 text-sm text-slate-500">
-            Photographs, video and visit updates will appear here.
-          </p>
-        </section>
-      </div>
+          <Link
+            href="/#visits"
+            className="visit-record-button"
+          >
+            Back to engagements
+            <ArrowUpRight size={16} />
+          </Link>
+        </div>
+      </footer>
     </main>
   );
 }

@@ -2,13 +2,32 @@
 
 import Link from "next/link";
 import {
-  CalendarDays,
-  Clock,
-  MapPin,
   ArrowUpRight,
+  CalendarDays,
+  Clock3,
+  MapPin,
 } from "lucide-react";
 
 import { visits } from "../app/data/visits";
+
+function getVisitTypeLabel(type: string) {
+  switch (type) {
+    case "project_launch":
+      return "Project Launch";
+
+    case "site_visit":
+      return "Site Visit";
+
+    case "community_engagement":
+      return "Community Engagement";
+
+    case "public_event":
+      return "Public Event";
+
+    default:
+      return type.replaceAll("_", " ");
+  }
+}
 
 export default function Visits() {
   const upcomingVisits = visits.filter(
@@ -16,133 +35,144 @@ export default function Visits() {
   );
 
   return (
-    <section
-      id="visits"
-      className="bg-white px-6 py-20 sm:px-10 lg:px-16"
-    >
-      <div className="mx-auto max-w-7xl">
+    <section className="visits-section" id="visits">
+      <div className="visits-inner">
         {/* Section heading */}
-        <div className="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div className="visits-header">
           <div>
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">
-              Constituency Engagements
+            <div className="section-number">
+              05 / CONSTITUENCY ENGAGEMENTS
+            </div>
+
+            <p className="section-kicker">
+              Field Schedule
             </p>
 
-            <h2 className="max-w-2xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-              Where development is happening next.
+            <h2>
+              WHERE DEVELOPMENT
+              <br />
+              <span>IS HAPPENING NEXT.</span>
             </h2>
-
-            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600">
-              Follow upcoming constituency visits, project launches and
-              public engagements across Mwala.
-            </p>
           </div>
 
-          <div className="hidden md:block">
-            <CalendarDays className="h-12 w-12 text-slate-200" />
+          <div className="visits-header-note">
+            <p>
+              Follow upcoming constituency visits, project launches
+              and public engagements across Mwala.
+            </p>
+
+            <div className="verified-label">
+              <span />
+              Upcoming field engagements
+            </div>
           </div>
         </div>
 
         {/* Upcoming visits */}
         {upcomingVisits.length > 0 ? (
-          <div className="space-y-6">
-            {upcomingVisits.map((visit) => (
+          <div className="visits-list">
+            {upcomingVisits.map((visit, index) => (
               <Link
-                key={`${visit.date}-${visit.title}`}
+                key={visit.id}
                 href={`/visits/${visit.id}`}
-                className="group block overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+                className="visit-card"
               >
-                <div className="grid lg:grid-cols-[220px_1fr]">
-                  {/* Date */}
-                  <div className="flex flex-row items-center gap-5 bg-slate-950 p-8 text-white lg:flex-col lg:items-start lg:justify-center">
-                    <div>
-                      <p className="text-5xl font-bold tracking-tight">
-                        {visit.date}
-                      </p>
+                {/* Date panel */}
+                <div className="visit-date">
+                  <span className="visit-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                      <p className="mt-1 text-sm font-semibold tracking-[0.2em] text-slate-400">
-                        {visit.month}
-                      </p>
+                  <strong>{visit.date}</strong>
+
+                  <span className="visit-month">
+                    {visit.month}
+                  </span>
+
+                  <span className="visit-day">
+                    {visit.day}
+                  </span>
+                </div>
+
+                {/* Main details */}
+                <div className="visit-content">
+                  <div className="visit-top">
+                    <div>
+                      <span className="visit-type">
+                        <span />
+                        {getVisitTypeLabel(visit.type)}
+                      </span>
+
+                      <h3>{visit.title}</h3>
                     </div>
 
-                    <div className="h-px w-12 bg-slate-700 lg:w-16" />
-
-                    <p className="text-sm font-medium text-slate-300">
-                      {visit.day}
-                    </p>
+                    <div className="visit-arrow">
+                      <ArrowUpRight size={20} />
+                    </div>
                   </div>
 
-                  {/* Details */}
-                  <div className="p-7 sm:p-9 lg:p-10">
-                    <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                  <p className="visit-description">
+                    {visit.description}
+                  </p>
+
+                  <div className="visit-meta">
+                    <div>
+                      <Clock3 size={15} />
+
                       <div>
-                        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
-                          Upcoming engagement
-                        </p>
-
-                        <h3 className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
-                          {visit.title}
-                        </h3>
-
-                        <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-                          {visit.description}
-                        </p>
-                      </div>
-
-                      <div className="hidden rounded-full bg-white p-3 text-slate-400 shadow-sm md:block">
-                        <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                        <span>TIME</span>
+                        <strong>{visit.time}</strong>
                       </div>
                     </div>
 
-                    <div className="mt-8 grid gap-4 border-t border-slate-200 pt-6 sm:grid-cols-2">
-                      <div className="flex items-center gap-3">
-                        <div className="rounded-xl bg-white p-2.5 shadow-sm">
-                          <Clock className="h-5 w-5 text-blue-600" />
-                        </div>
+                    <div>
+                      <MapPin size={15} />
 
-                        <div>
-                          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-                            Time
-                          </p>
-
-                          <p className="mt-1 font-semibold text-slate-800">
-                            {visit.time}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <div className="rounded-xl bg-white p-2.5 shadow-sm">
-                          <MapPin className="h-5 w-5 text-blue-600" />
-                        </div>
-
-                        <div>
-                          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-                            Location
-                          </p>
-
-                          <p className="mt-1 font-semibold text-slate-800">
-                            {visit.location}
-                          </p>
-                        </div>
+                      <div>
+                        <span>LOCATION</span>
+                        <strong>{visit.location}</strong>
                       </div>
                     </div>
+
+                    <div>
+                      <CalendarDays size={15} />
+
+                      <div>
+                        <span>WARD</span>
+                        <strong>{visit.ward}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="visit-footer">
+                    <span>
+                      STATUS · {visit.status}
+                    </span>
+
+                    <span className="visit-view">
+                      View engagement
+                      <ArrowUpRight size={13} />
+                    </span>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
         ) : (
-          <div className="rounded-3xl border border-dashed border-slate-200 bg-slate-50 p-10 text-center">
-            <CalendarDays className="mx-auto h-10 w-10 text-slate-300" />
+          <div className="visits-empty">
+            <CalendarDays size={32} />
 
-            <h3 className="mt-5 text-xl font-semibold text-slate-900">
-              No upcoming engagements
+            <span>NO UPCOMING ENGAGEMENTS</span>
+
+            <h3>
+              THE NEXT FIELD VISIT
+              <br />
+              WILL APPEAR HERE.
             </h3>
 
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-slate-500">
-              Upcoming constituency visits, project launches and public
-              engagements will appear here as they are added.
+            <p>
+              Upcoming constituency visits, project launches and
+              public engagements will appear here as they are added.
             </p>
           </div>
         )}

@@ -107,85 +107,123 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* Development Archive */}
-      <section className="project-archive-summary">
-        <div className="project-archive-inner">
-          <div className="project-archive-heading">
-            <span>DEVELOPMENT ARCHIVE</span>
+     {/* Development Archive */}
+<section className="project-archive-summary">
+  <div className="project-archive-inner">
+    <div className="project-archive-heading">
+      <div>
+        <span>DEVELOPMENT ARCHIVE</span>
 
-            <p>
-              Current project records across Mwala Constituency
-            </p>
-          </div>
+        <h3>Current project records</h3>
+      </div>
 
-          <div className="project-archive-grid">
-            <button
-              type="button"
-              className={`project-archive-stat ${
-                activeFilter === "all"
-                  ? "project-archive-stat-active"
-                  : ""
-              }`}
-              onClick={() => setActiveFilter("all")}
-            >
-              <span>01</span>
+      <span className="project-archive-index">
+        02 / PROJECT DIRECTORY
+      </span>
+    </div>
 
-              <strong>{projectCounts.all}</strong>
+    <div className="project-archive-intro">
+      <p>
+        Current project records across Mwala Constituency,
+        organised by implementation stage.
+      </p>
 
-              <small>Total projects</small>
-            </button>
+      <span>
+        {projectCounts.all} TOTAL PROJECTS
+      </span>
+    </div>
 
-            <button
-              type="button"
-              className={`project-archive-stat ${
-                activeFilter === "ongoing"
-                  ? "project-archive-stat-active"
-                  : ""
-              }`}
-              onClick={() => setActiveFilter("ongoing")}
-            >
-              <span>02</span>
-
-              <strong>{projectCounts.ongoing}</strong>
-
-              <small>Ongoing</small>
-            </button>
-
-            <button
-              type="button"
-              className={`project-archive-stat ${
-                activeFilter === "completed"
-                  ? "project-archive-stat-active"
-                  : ""
-              }`}
-              onClick={() => setActiveFilter("completed")}
-            >
-              <span>03</span>
-
-              <strong>{projectCounts.completed}</strong>
-
-              <small>Completed</small>
-            </button>
-
-            <button
-              type="button"
-              className={`project-archive-stat ${
-                activeFilter === "pending"
-                  ? "project-archive-stat-active"
-                  : ""
-              }`}
-              onClick={() => setActiveFilter("pending")}
-            >
-              <span>04</span>
-
-              <strong>{projectCounts.pending}</strong>
-
-              <small>Pending</small>
-            </button>
-          </div>
+    <div className="project-archive-grid">
+      <button
+        type="button"
+        className={`project-archive-stat ${
+          activeFilter === "all"
+            ? "project-archive-stat-active"
+            : ""
+        }`}
+        onClick={() => setActiveFilter("all")}
+      >
+        <div className="project-archive-stat-top">
+          <span>01</span>
+          <span>RECORD</span>
         </div>
-      </section>
 
+        <strong>{projectCounts.all}</strong>
+
+        <div className="project-archive-stat-bottom">
+          <small>Total projects</small>
+          <span />
+        </div>
+      </button>
+
+      <button
+        type="button"
+        className={`project-archive-stat ${
+          activeFilter === "ongoing"
+            ? "project-archive-stat-active"
+            : ""
+        }`}
+        onClick={() => setActiveFilter("ongoing")}
+      >
+        <div className="project-archive-stat-top">
+          <span>02</span>
+          <span>RECORD</span>
+        </div>
+
+        <strong>{projectCounts.ongoing}</strong>
+
+        <div className="project-archive-stat-bottom">
+          <small>Ongoing</small>
+          <span />
+        </div>
+      </button>
+
+      <button
+        type="button"
+        className={`project-archive-stat ${
+          activeFilter === "completed"
+            ? "project-archive-stat-active"
+            : ""
+        }`}
+        onClick={() => setActiveFilter("completed")}
+      >
+        <div className="project-archive-stat-top">
+          <span>03</span>
+          <span>RECORD</span>
+        </div>
+
+        <strong>{projectCounts.completed}</strong>
+
+        <div className="project-archive-stat-bottom">
+          <small>Completed</small>
+          <span />
+        </div>
+      </button>
+
+      <button
+        type="button"
+        className={`project-archive-stat ${
+          activeFilter === "pending"
+            ? "project-archive-stat-active"
+            : ""
+        }`}
+        onClick={() => setActiveFilter("pending")}
+      >
+        <div className="project-archive-stat-top">
+          <span>04</span>
+          <span>RECORD</span>
+        </div>
+
+        <strong>{projectCounts.pending}</strong>
+
+        <div className="project-archive-stat-bottom">
+          <small>Pending</small>
+          <span />
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
       {/* Project Directory */}
       <section className="project-section" id="projects">
         <div className="project-section-header">

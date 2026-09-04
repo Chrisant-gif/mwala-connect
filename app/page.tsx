@@ -1,3 +1,4 @@
+import Wards from "./components/Wards";
 import Engagements from "../components/Engagements";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -18,6 +19,8 @@ export default function Home() {
       <AllocationHistory />
 
       <Projects />
+
+      <Wards />
 
       <Engagements />
 

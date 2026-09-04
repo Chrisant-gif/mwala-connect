@@ -77,9 +77,7 @@ export default function Stats() {
         <div className="stats-intro">
           <span>MWALA AT A GLANCE</span>
 
-          <span>
-            FY {constituencyStatistics.financialYear}
-          </span>
+          <span>FY {constituencyStatistics.financialYear}</span>
         </div>
 
         <div className="stats-grid">
@@ -94,42 +92,57 @@ export default function Stats() {
           ))}
         </div>
 
-        {/* Development Status */}
-        <div className="financial-overview">
-          <div className="financial-heading">
-            <span>DEVELOPMENT STATUS</span>
+        {/* Development Archive */}
+        <div className="development-archive">
+          <div className="development-archive-header">
+            <div>
+              <span className="development-archive-kicker">
+                DEVELOPMENT ARCHIVE
+              </span>
 
-            <span>CURRENT PROJECT RECORDS</span>
+              <h3>Current project records</h3>
+            </div>
+
+            <span className="development-archive-index">
+              02 / DEVELOPMENT STATUS
+            </span>
           </div>
 
-          <p
-            style={{
-              margin: "24px 0 0",
-              color: "rgba(255, 255, 255, 0.52)",
-              fontSize: "13px",
-              lineHeight: "1.7",
-            }}
-          >
-            Current project records by implementation stage.
-          </p>
+          <div className="development-archive-intro">
+            <p>
+              Current project records across Mwala Constituency, organised by
+              implementation stage.
+            </p>
 
-          <div
-            className="stats-grid"
-            style={{ marginTop: "24px" }}
-          >
+            <span>
+              {constituencyStatistics.projects} TOTAL PROJECTS
+            </span>
+          </div>
+
+          <div className="development-archive-grid">
             {developmentStatus.map((stat) => (
-              <article className="stat-card" key={stat.number}>
-                <span className="stat-index">{stat.number}</span>
+              <article
+                className="development-archive-card"
+                key={stat.number}
+              >
+                <div className="development-archive-card-top">
+                  <span>{stat.number}</span>
+                  <span>RECORD</span>
+                </div>
 
                 <strong>{stat.value}</strong>
 
-                <span>{stat.label}</span>
+                <div className="development-archive-card-bottom">
+                  <span>{stat.label}</span>
+                  <span className="archive-status-dot" />
+                </div>
               </article>
             ))}
           </div>
 
           {/* Public Investment */}
-          <div style={{ paddingTop: "70px" }}>
+          {/* Public Investment */}
+<div className="public-investment" id="money">
             <div className="financial-heading">
               <span>PUBLIC INVESTMENT</span>
 
@@ -157,7 +170,6 @@ export default function Stats() {
               </div>
             </div>
           </div>
-        
         </div>
       </section>
     </>

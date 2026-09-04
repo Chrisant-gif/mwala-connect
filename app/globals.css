@@ -4324,3 +4324,553 @@ button {
     font-size: 52px;
   }
 }
+/* =========================================================
+   WARDS DIRECTORY
+   ========================================================= */
+
+.wards-section {
+  padding: 120px 0 110px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.wards-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.wards-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--line);
+}
+
+.wards-kicker {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.wards-header h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(42px, 6vw, 78px);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+.wards-header h2 span {
+  color: var(--muted);
+}
+
+.wards-index {
+  flex-shrink: 0;
+  padding-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.wards-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 30px 0 42px;
+}
+
+.wards-intro p {
+  max-width: 590px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.wards-intro > span {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.ward-record {
+  min-height: 285px;
+  padding: 24px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.ward-record:hover {
+  background: rgba(22, 63, 43, 0.035);
+}
+
+.ward-record-top,
+.ward-record-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.ward-record-top span,
+.ward-record-bottom span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.ward-record-main {
+  padding: 36px 0;
+}
+
+.ward-record-main h3 {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.ward-record-main p {
+  max-width: 430px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ward-record-bottom {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.ward-record-bottom strong {
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+/* =========================================================
+   WARDS DIRECTORY — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .wards-section {
+    padding: 88px 0 76px;
+  }
+
+  .wards-inner {
+    padding: 0 20px;
+  }
+
+  .wards-header {
+    display: block;
+  }
+
+  .wards-header h2 {
+    font-size: clamp(42px, 13vw, 62px);
+  }
+
+  .wards-index {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .wards-intro {
+    display: block;
+    padding: 24px 0 32px;
+  }
+
+  .wards-intro > span {
+    display: block;
+    margin-top: 18px;
+  }
+
+  .wards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ward-record {
+    min-height: 245px;
+    padding: 20px;
+  }
+
+  .ward-record-main {
+    padding: 30px 0;
+  }
+
+  .ward-record-main h3 {
+    font-size: 38px;
+  }
+}
+/* =========================================================
+   WARD RECORD
+   ========================================================= */
+
+.ward-record-page {
+  min-height: 100vh;
+  padding: 110px 0 120px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.ward-record-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.ward-record-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+}
+
+.ward-record-kicker,
+.ward-record-label {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.ward-record-header h1 {
+  margin: 18px 0 0;
+  font-size: clamp(58px, 9vw, 120px);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 0.82;
+}
+
+.ward-record-label {
+  padding-top: 4px;
+  white-space: nowrap;
+}
+
+.ward-record-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 30px 0 40px;
+}
+
+.ward-record-intro p {
+  max-width: 600px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.ward-record-intro > span {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ward-record-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.ward-record-stats > div {
+  min-height: 150px;
+  padding: 22px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.ward-record-stats span {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ward-record-stats strong {
+  display: block;
+  margin-top: 34px;
+  font-size: 54px;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 0.8;
+}
+
+.ward-record-projects {
+  margin-top: 80px;
+}
+
+.ward-record-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.ward-project {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 30px;
+  padding: 42px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ward-project-index {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.ward-project-content {
+  max-width: 900px;
+}
+
+.ward-project-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.ward-project-topline > span:first-child {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ward-project-status {
+  position: relative;
+  padding-left: 14px;
+  color: var(--ink);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.ward-project-status::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  transform: translateY(-50%);
+}
+
+.ward-project h2 {
+  margin: 22px 0 12px;
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.ward-project-content > p {
+  max-width: 650px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.ward-project-detail {
+  margin-top: 30px;
+  padding: 18px 20px;
+  border-left: 2px solid var(--orange);
+  background: rgba(216, 123, 56, 0.035);
+}
+
+.ward-project-detail > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ward-project-detail p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.ward-project-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 240px));
+  gap: 30px;
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.ward-project-meta span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ward-project-meta strong {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.ward-record-empty {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.ward-record-empty > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ward-record-empty p {
+  max-width: 500px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   WARD RECORD — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .ward-record-page {
+    padding: 82px 0 80px;
+  }
+
+  .ward-record-container {
+    padding: 0 20px;
+  }
+
+  .ward-record-header {
+    display: block;
+  }
+
+  .ward-record-header h1 {
+    font-size: clamp(54px, 17vw, 86px);
+    line-height: 0.86;
+  }
+
+  .ward-record-label {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .ward-record-intro {
+    display: block;
+    padding: 24px 0 30px;
+  }
+
+  .ward-record-intro > span {
+    display: block;
+    margin-top: 18px;
+  }
+
+  .ward-record-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .ward-record-stats > div {
+    min-height: 120px;
+  }
+
+  .ward-record-stats strong {
+    margin-top: 26px;
+    font-size: 48px;
+  }
+
+  .ward-record-projects {
+    margin-top: 58px;
+  }
+
+  .ward-record-section-heading {
+    font-size: 8px;
+  }
+
+  .ward-project {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 34px 0;
+  }
+
+  .ward-project-index {
+    font-size: 10px;
+  }
+
+  .ward-project-topline {
+    align-items: flex-start;
+  }
+
+  .ward-project h2 {
+    font-size: 38px;
+  }
+
+  .ward-project-meta {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}

@@ -38,6 +38,6 @@ export const visits: Visit[] = [
     description:
       "A constituency development engagement focused on the launch of a new water project serving residents of Masii Ward.",
     type: "project_launch",
-    status: "upcoming",
+    status: "completed",
   },
 ];

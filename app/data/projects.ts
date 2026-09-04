@@ -1,4 +1,7 @@
-export type ProjectStatus = "ongoing" | "completed" | "pending";
+export type ProjectStatus =
+  | "ongoing"
+  | "completed"
+  | "pending";
 
 export type VerificationStatus =
   | "verified"
@@ -7,31 +10,18 @@ export type VerificationStatus =
 
 export interface Project {
   id: number;
-
   location: string;
-
   ward: string;
-
   title: string;
-
   description: string;
-
   status: ProjectStatus;
-
   progress: number;
-
   budget: string;
-
   startDate: string;
-
   expectedCompletion: string;
-
   source: string;
-
   verificationStatus: VerificationStatus;
-
   lastVerified?: string;
-
   featured?: boolean;
 }
 
@@ -50,6 +40,7 @@ export const projects: Project[] = [
     expectedCompletion: "To be confirmed",
     source: "Project information pending official verification",
     verificationStatus: "in_progress",
+    lastVerified: "Verification in progress",
     featured: true,
   },
 
@@ -67,6 +58,7 @@ export const projects: Project[] = [
     expectedCompletion: "To be confirmed",
     source: "Project information pending official verification",
     verificationStatus: "in_progress",
+    lastVerified: "Verification in progress",
   },
 
   {
@@ -83,5 +75,6 @@ export const projects: Project[] = [
     expectedCompletion: "To be confirmed",
     source: "Project information pending official verification",
     verificationStatus: "in_progress",
+    lastVerified: "Verification in progress",
   },
 ];

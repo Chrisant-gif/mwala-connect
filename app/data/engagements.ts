@@ -5,9 +5,9 @@ export const engagements: Engagement[] = [
     id: "engagement-001",
     title: "Water Project Launch",
     type: "Project Launch",
-    status: "upcoming",
-    date: "Upcoming",
-    time: "To be announced",
+    status: "completed",
+    date: "26 August",
+    time: "10:00 AM",
     location: "Masii Ward",
     ward: "Masii",
     description:

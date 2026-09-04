@@ -4874,3 +4874,146 @@ button {
     gap: 18px;
   }
 }
+/* =========================================================
+   WARD RECORD TRANSITION
+   ========================================================= */
+
+.ward-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 40px;
+  background: var(--green-dark);
+  color: var(--white);
+  pointer-events: none;
+  animation: ward-transition-exit 700ms cubic-bezier(0.77, 0, 0.18, 1)
+    forwards;
+}
+
+.ward-transition-top,
+.ward-transition-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.ward-transition-center {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+}
+
+.ward-transition-number {
+  display: block;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.ward-transition-center h2 {
+  margin: 0;
+  font-size: clamp(64px, 11vw, 150px);
+  font-weight: 500;
+  letter-spacing: -0.08em;
+  line-height: 0.82;
+  animation: ward-transition-title 600ms ease both;
+}
+
+.ward-transition-loader {
+  width: 100%;
+  height: 1px;
+  margin-top: 48px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.ward-transition-loader span {
+  display: block;
+  width: 45%;
+  height: 100%;
+  background: var(--orange);
+  animation: ward-transition-line 600ms
+    cubic-bezier(0.77, 0, 0.18, 1) both;
+}
+
+.ward-transition-status {
+  display: block;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+@keyframes ward-transition-title {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ward-transition-line {
+  from {
+    transform: translateX(-110%);
+  }
+
+  to {
+    transform: translateX(230%);
+  }
+}
+
+@keyframes ward-transition-exit {
+  0%,
+  70% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* =========================================================
+   WARD RECORD TRANSITION — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .ward-transition {
+    padding: 22px 20px;
+  }
+
+  .ward-transition-top,
+  .ward-transition-bottom {
+    font-size: 8px;
+  }
+
+  .ward-transition-top span:last-child,
+  .ward-transition-bottom span:last-child {
+    display: none;
+  }
+
+  .ward-transition-center h2 {
+    font-size: clamp(58px, 18vw, 92px);
+  }
+
+  .ward-transition-loader {
+    margin-top: 36px;
+  }
+}

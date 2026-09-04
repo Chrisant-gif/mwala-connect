@@ -1,3 +1,4 @@
+import WardTransition from "../../components/WardTransition";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -20,6 +21,12 @@ export default async function WardPage({ params }: WardPageProps) {
 
   return (
     <main>
+        <WardTransition
+    wardNumber={ward.id}
+    wardName={ward.name}
+  />
+
+  
       <header className="project-record-header">
         <div className="project-record-header-inner">
           <Link href="/#wards" className="project-record-back">

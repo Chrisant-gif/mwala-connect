@@ -1,3 +1,4 @@
+import Representative from "./components/Representative";
 import Wards from "./components/Wards";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -22,6 +23,8 @@ export default function Home() {
       <Wards />
 
       <Visits />
+
+      <Representative />
 
       <footer className="site-footer">
         <div className="footer-inner">

@@ -21,8 +21,9 @@ export default function Hero() {
         </h1>
 
         <p className="hero-description reveal reveal-delay-two">
-          A transparent view of development across Mwala Constituency —
-          projects, public investment, progress and impact, all in one place.
+          A digital development record for Mwala Constituency — bringing
+          projects, wards, public investment, progress and field activity
+          together in one place.
         </p>
 
         <div className="hero-actions reveal reveal-delay-three">

@@ -1,8 +1,5 @@
 import { ArrowUpRight, GraduationCap, MapPin } from "lucide-react";
 
-const representativePhoto =
-  "https://cdn.thekenyatimes.com/uploads/2025/08/MUSAU-VINCENT-MUSYOKA-1.jpg";
-
 export default function Representative() {
   return (
     <section className="representative-section" id="representative">
@@ -27,17 +24,8 @@ export default function Representative() {
 
         <div className="representative-grid">
           <div className="representative-portrait">
-            <div className="representative-photo-frame">
-              <img
-                src={representativePhoto}
-                alt="Hon. Eng. Vincent Musyoka Kawaya"
-                className="representative-photo"
-              />
-            </div>
-
-            <div className="representative-portrait-label">
-              <span>PUBLIC RECORD</span>
-              <strong>MWALA CONSTITUENCY</strong>
+            <div className="representative-portrait-placeholder">
+              <span>VMK</span>
             </div>
           </div>
 

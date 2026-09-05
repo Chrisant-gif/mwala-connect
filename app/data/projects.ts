@@ -46,8 +46,8 @@ export const projects: Project[] = [
 
   {
     id: 2,
-    location: "Matuu Ward",
-    ward: "Matuu",
+    location: "Mwala Constituency",
+    ward: "Ward to be verified",
     title: "Community Development Initiative",
     description:
       "Development works supporting community infrastructure and improving access to essential public services.",

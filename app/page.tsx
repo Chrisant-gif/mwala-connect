@@ -1,5 +1,4 @@
 import Wards from "./components/Wards";
-import Engagements from "../components/Engagements";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
@@ -21,8 +20,6 @@ export default function Home() {
       <Projects />
 
       <Wards />
-
-      <Engagements />
 
       <Visits />
 

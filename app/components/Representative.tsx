@@ -27,11 +27,13 @@ export default function Representative() {
 
         <div className="representative-grid">
           <div className="representative-portrait">
-            <img
-              src={representativePhoto}
-              alt="Hon. Eng. Vincent Musyoka Kawaya"
-              className="representative-photo"
-            />
+            <div className="representative-photo-frame">
+              <img
+                src={representativePhoto}
+                alt="Hon. Eng. Vincent Musyoka Kawaya"
+                className="representative-photo"
+              />
+            </div>
 
             <div className="representative-portrait-label">
               <span>PUBLIC RECORD</span>

@@ -22,12 +22,13 @@ export default function Wards() {
 
         <div className="wards-intro">
           <p>
-            Mwala Constituency is organised across six wards. This section
-            brings together ward-level information so development activity can
-            be viewed closer to the communities it serves.
+            Mwala Constituency is organised across six wards. Mwala Connect
+            gives each ward its own development record, creating a structured
+            way to document projects, progress and community activity as
+            verified information is added.
           </p>
 
-          <span>WARD DIRECTORY</span>
+          <span>WARD DEVELOPMENT RECORDS</span>
         </div>
 
         <div className="wards-grid">

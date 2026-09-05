@@ -131,7 +131,7 @@ export default function Visits() {
   );
 
   return (
-    <section className="visits-section" id="visits">
+    <section className="visits-section" id="engagements">
       <div className="visits-inner">
         {/* Section heading */}
         <div className="visits-header">
@@ -153,13 +153,14 @@ export default function Visits() {
 
           <div className="visits-header-note">
             <p>
-              Follow constituency visits, project launches
-              and public engagements across Mwala.
+              Follow constituency visits, project launches and community
+              engagements — with field activity organised as part of the wider
+              development record.
             </p>
 
             <div className="verified-label">
               <span />
-              Field engagements
+              Field documentation
             </div>
           </div>
         </div>
@@ -187,9 +188,8 @@ export default function Visits() {
             </h3>
 
             <p>
-              Upcoming constituency visits, project launches
-              and public engagements will appear here as they
-              are added.
+              Upcoming constituency visits, project launches and public
+              engagements will appear here as they are added.
             </p>
           </div>
         )}
@@ -200,7 +200,7 @@ export default function Visits() {
             <div className="visits-completed-header">
               <div>
                 <p className="section-kicker">
-                  Engagement History
+                  Field Activity History
                 </p>
 
                 <h3>RECENT ENGAGEMENTS</h3>

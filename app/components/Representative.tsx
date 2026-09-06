@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpRight, GraduationCap, MapPin } from "lucide-react";
 
 export default function Representative() {
@@ -24,9 +25,16 @@ export default function Representative() {
 
         <div className="representative-grid">
           <div className="representative-portrait">
-            <div className="representative-portrait-placeholder">
-              <span>VMK</span>
-            </div>
+            <Image
+              src="/images/kawaya.jpg"
+              alt="Hon. Eng. Vincent Musyoka Kawaya"
+              fill
+              priority
+              sizes="(max-width: 820px) 100vw, 50vw"
+              className="representative-portrait-image"
+            />
+
+            <div className="representative-portrait-gradient" />
           </div>
 
           <div className="representative-content">

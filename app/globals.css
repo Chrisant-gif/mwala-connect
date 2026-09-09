@@ -5595,3 +5595,67 @@ button {
     object-position: center center;
   }
 }
+/* =========================================================
+   REPRESENTATIVE — FINAL PORTRAIT TREATMENT
+   ========================================================= */
+
+.representative-portrait {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--green-dark);
+}
+
+/* Remove the old placeholder label completely */
+.representative-portrait::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Authentic portrait */
+.representative-portrait-image {
+  object-fit: cover;
+  object-position: center center;
+  filter: saturate(0.96) contrast(1.03);
+  transform: scale(1.015);
+}
+
+/* Subtle editorial green gradient */
+.representative-portrait-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(13, 40, 27, 0.02) 0%,
+      rgba(13, 40, 27, 0.04) 42%,
+      rgba(13, 40, 27, 0.18) 72%,
+      rgba(13, 40, 27, 0.62) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(13, 40, 27, 0.34) 0%,
+      rgba(13, 40, 27, 0.10) 32%,
+      rgba(13, 40, 27, 0) 62%
+    );
+}
+
+/* Keep the photograph above the panel background */
+.representative-portrait-image {
+  z-index: 0;
+}
+
+@media (max-width: 820px) {
+  .representative-portrait {
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 560px) {
+  .representative-portrait {
+    min-height: 360px;
+  }
+}

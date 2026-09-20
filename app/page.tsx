@@ -25,9 +25,9 @@ export default function Home() {
 
       <Visits />
 
-      <Representative />
-
       <Engagements />
+
+      <Representative />
 
       <footer className="site-footer">
         <div className="footer-inner">

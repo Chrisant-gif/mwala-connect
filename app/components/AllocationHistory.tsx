@@ -18,7 +18,7 @@ export default function AllocationHistory() {
       <div className="allocation-history-inner">
         <div className="allocation-history-header">
           <div>
-            <p className="section-kicker">Public Investment</p>
+            <p className="section-kicker">03 / INVESTMENT</p>
 
             <h2>
               ALLOCATION

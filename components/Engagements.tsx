@@ -24,7 +24,7 @@ export default function Engagements() {
         {/* Section introduction */}
         <div className="engagements-intro">
           <div>
-            <p className="section-kicker">03 / ENGAGEMENT</p>
+            <p className="section-kicker">06 / ENGAGEMENTS</p>
 
             <h2>
               CONSTITUENCY

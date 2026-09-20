@@ -8,7 +8,7 @@ export default function Wards() {
       <div className="wards-inner">
         <div className="wards-header">
           <div>
-            <span className="wards-kicker">03 / WARDS</span>
+            <span className="wards-kicker">04 / WARDS</span>
 
             <h2>
               SIX WARDS.

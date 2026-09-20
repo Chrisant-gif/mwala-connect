@@ -8,7 +8,7 @@ export default function Representative() {
         <div className="representative-header">
           <div>
             <span className="representative-kicker">
-              06 / REPRESENTATIVE
+              07 / REPRESENTATIVE
             </span>
 
             <h2>

@@ -131,7 +131,7 @@ export default function Visits() {
   );
 
   return (
-    <section className="visits-section" id="engagements">
+    <section className="visits-section" id="visits">
       <div className="visits-inner">
         {/* Section heading */}
         <div className="visits-header">

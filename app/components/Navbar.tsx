@@ -32,6 +32,7 @@ export default function Navbar() {
           <a href="#money">Public Funds</a>
           <a href="#wards">Wards</a>
           <a href="#engagements">Engagements</a>
+          <a href="#representative">The Rep</a>
         </nav>
 
         {/* Desktop CTA */}
@@ -73,6 +74,10 @@ export default function Navbar() {
 
         <a href="#engagements" onClick={closeMenu}>
           Engagements
+        </a>
+
+        <a href="#representative" onClick={closeMenu}>
+          The Rep
         </a>
 
         <a

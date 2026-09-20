@@ -6,6 +6,7 @@ import Stats from "./components/Stats";
 import AllocationHistory from "./components/AllocationHistory";
 import Projects from "./components/Projects";
 import Visits from "../components/Visits";
+import Engagements from "../components/Engagements";
 
 export default function Home() {
   return (
@@ -25,6 +26,8 @@ export default function Home() {
       <Visits />
 
       <Representative />
+
+      <Engagements />
 
       <footer className="site-footer">
         <div className="footer-inner">

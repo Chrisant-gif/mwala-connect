@@ -443,17 +443,16 @@ button {
   overflow-wrap: normal;
 }
 
-.overview-content h2 span,
-.development-intro h2 span {
-  color: var(--muted);
-}
-
-.overview-copy {
-  max-width: 650px;
-  margin: 38px 0 0;
-  color: #555850;
-  font-size: 18px;
-  line-height: 1.8;
+.overview-content h2,
+.development-intro h2 {
+  width: 100%;
+  max-width: 100%;
+  padding-right: 4px;
+  font-size: clamp(46px, 14vw, 68px);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .source-note {
@@ -1121,7 +1120,7 @@ button {
   .overview-section,
   .development-intro,
   .project-section {
-    width: min(100% - 32px, 1400px);
+    width: calc(100% - 32px);
   }
 
   .hero-description {
@@ -1148,24 +1147,27 @@ button {
     display: none;
   }
 
-  .overview-section,
-  .development-intro {
-    padding-top: 90px;
-    padding-bottom: 80px;
-  }
-
   .overview-content h2,
-  .development-intro h2 {
-    max-width: 100%;
-    font-size: clamp(48px, 15vw, 72px);
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-  }
+.development-intro h2 {
+  display: block;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  font-size: clamp(42px, 13vw, 62px);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  overflow: visible;
+}
 
-  .overview-copy {
-    font-size: 16px;
-    line-height: 1.75;
-  }
+.development-intro,
+.development-intro > div,
+.overview-content,
+.overview-content > div {
+  min-width: 0;
+  overflow: visible;
+}
 
   .source-note {
     font-size: 9px;
@@ -1205,49 +1207,150 @@ button {
     font-size: clamp(38px, 12vw, 60px);
   }
 
+  /* PROJECT DIRECTORY */
+
+  .project-section {
+    padding-bottom: 90px;
+  }
+
   .project-section-header {
     align-items: flex-start;
     flex-direction: column;
+    gap: 22px;
+  }
+
+  .project-section-header p {
+    margin-top: 7px;
+    font-size: 10px;
+    line-height: 1.5;
   }
 
   .project-filter {
     width: 100%;
+    gap: 7px;
   }
 
   .project-filter button {
-    flex: 1 1 auto;
+    flex: 1 1 calc(50% - 7px);
+    min-height: 38px;
+    padding: 10px 8px;
+    font-size: 8px;
+    line-height: 1.2;
+  }
+
+  .project-grid {
+    gap: 12px;
+    padding-top: 12px;
   }
 
   .project-card {
-    min-height: 520px;
-    padding: 22px;
+    min-height: 0;
+    padding: 20px;
   }
 
   .project-top {
     align-items: flex-start;
     flex-wrap: wrap;
+    gap: 12px;
+    font-size: 8px;
+  }
+
+  .project-status {
+    gap: 6px;
   }
 
   .project-main {
-    padding-top: 65px;
+    margin-top: 0;
+    padding: 72px 0 34px;
+  }
+
+  .project-location {
+    margin-bottom: 11px;
+    font-size: 9px;
+    line-height: 1.55;
   }
 
   .project-main h3 {
-    font-size: clamp(34px, 11vw, 52px);
+    max-width: 100%;
+    font-size: clamp(36px, 12vw, 52px);
+    line-height: 0.9;
+    letter-spacing: -0.055em;
+    overflow-wrap: anywhere;
+  }
+
+  .project-description {
+    margin-top: 20px;
+    font-size: 13px;
+    line-height: 1.7;
   }
 
   .project-bottom {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 22px;
+    padding-top: 20px;
+  }
+
+  .project-record strong {
+    font-size: 13px;
+  }
+
+  .progress-heading {
+    gap: 12px;
+  }
+
+  .progress-heading strong {
+    font-size: 10px;
+  }
+
+  .project-meta {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-top: 20px;
+  }
+
+  .project-meta div {
+    gap: 5px;
+  }
+
+  .project-meta strong {
+    font-size: 10px;
+    line-height: 1.5;
   }
 
   .project-footer {
     align-items: flex-start;
     flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 18px;
+  }
+
+  .project-footer > span {
+    max-width: 100%;
+    font-size: 8px;
+    line-height: 1.6;
   }
 
   .project-link {
     white-space: normal;
+    line-height: 1.5;
+  }
+
+  .project-link span {
+    font-size: 13px;
+  }
+
+  .empty-projects {
+    padding: 70px 20px;
+  }
+
+  .empty-projects h3 {
+    font-size: 34px;
+  }
+
+  .empty-projects p {
+    font-size: 13px;
+    line-height: 1.7;
   }
 }
 
@@ -4580,7 +4683,7 @@ button {
   }
 }
 /* =========================================================
-   DEVELOPMENT ARCHIVE
+   PROJECT ARCHIVE SUMMARY
    ========================================================= */
 
 .project-archive-summary {
@@ -4616,31 +4719,33 @@ button {
 
 .project-archive-heading > div > span {
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   color: var(--muted);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .project-archive-heading h3 {
   margin: 0;
   color: var(--ink);
-  font-size: clamp(30px, 4vw, 50px);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 0.98;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
 }
 
 .project-archive-index {
-  flex-shrink: 0;
-  padding-top: 3px;
+  display: block;
+  padding-top: 4px;
   color: var(--muted);
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .project-archive-intro {
@@ -4648,27 +4753,24 @@ button {
   align-items: flex-end;
   justify-content: space-between;
   gap: 32px;
-  padding: 28px 0;
+  padding: 30px 0 42px;
 }
 
 .project-archive-intro p {
-  max-width: 560px;
+  max-width: 590px;
   margin: 0;
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
 .project-archive-intro > span {
-  flex-shrink: 0;
   color: var(--muted);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
-  text-transform: uppercase;
+  white-space: nowrap;
 }
-
-/* Archive statistics */
 
 .project-archive-grid {
   display: grid;
@@ -4700,19 +4802,19 @@ button {
   content: "";
   position: absolute;
   right: 22px;
-  bottom: 20px;
+  bottom: 18px;
   left: 22px;
-  height: 1px;
-  background: rgba(16, 18, 15, 0.08);
+  height: 2px;
+  background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 220ms ease;
+  transition: transform 180ms ease;
 }
 
 .project-archive-stat:hover {
-  background: #e4e1d8;
+  background: #e3dfd5;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(16, 18, 15, 0.04);
+  box-shadow: 0 10px 24px rgba(16, 18, 15, 0.06);
 }
 
 .project-archive-stat:hover::after {
@@ -4722,7 +4824,7 @@ button {
 .project-archive-stat-active {
   background: var(--green);
   color: #fff;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  box-shadow: 0 14px 30px rgba(13, 40, 27, 0.12);
 }
 
 .project-archive-stat-active:hover {
@@ -4731,7 +4833,7 @@ button {
 }
 
 .project-archive-stat-active::after {
-  background: rgba(255, 255, 255, 0.14);
+  transform: scaleX(1);
 }
 
 .project-archive-stat-top,
@@ -4746,51 +4848,54 @@ button {
   color: var(--muted);
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .project-archive-stat-active .project-archive-stat-top span {
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .project-archive-stat strong {
   display: block;
-  margin: 44px 0 28px;
-  color: inherit;
+  margin: 38px 0 28px;
   font-size: clamp(48px, 5vw, 72px);
-  font-weight: 600;
-  letter-spacing: -0.06em;
-  line-height: 0.85;
+  font-weight: 500;
+  letter-spacing: -0.07em;
+  line-height: 0.8;
 }
 
 .project-archive-stat-bottom small {
-  color: var(--ink);
+  color: var(--muted);
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
 .project-archive-stat-active .project-archive-stat-bottom small {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .project-archive-stat-bottom > span {
-  width: 6px;
-  height: 6px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 4px rgba(216, 123, 56, 0.1);
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.45;
 }
 
+
 /* =========================================================
-   DEVELOPMENT ARCHIVE — MOBILE
+   PROJECT ARCHIVE — TABLET
    ========================================================= */
 
 @media (max-width: 900px) {
   .project-archive-inner {
     padding: 0 24px;
+  }
+
+  .project-archive-heading {
+    gap: 20px;
   }
 
   .project-archive-grid {
@@ -4802,53 +4907,7 @@ button {
   }
 }
 
-@media (max-width: 600px) {
-  .project-archive-summary {
-    padding-bottom: 72px;
-  }
 
-  .project-archive-inner {
-    padding: 0 20px;
-  }
-
-  .project-archive-heading {
-    display: block;
-  }
-
-  .project-archive-index {
-    display: block;
-    margin-top: 18px;
-  }
-
-  .project-archive-intro {
-    display: block;
-  }
-
-  .project-archive-intro > span {
-    display: block;
-    margin-top: 18px;
-  }
-
-  .project-archive-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .project-archive-stat {
-    min-height: 150px;
-    padding: 18px;
-  }
-
-  .project-archive-stat strong {
-    margin: 28px 0 22px;
-    font-size: 52px;
-  }
-
-  .project-archive-stat::after {
-    right: 18px;
-    bottom: 16px;
-    left: 18px;
-  }
-}
 /* =========================================================
    WARDS DIRECTORY
    ========================================================= */

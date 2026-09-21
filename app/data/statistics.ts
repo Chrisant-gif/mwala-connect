@@ -33,5 +33,5 @@ export const constituencyStatistics: ConstituencyStatistics = {
   pendingProjects,
   residentsServed: "To be verified",
   totalAllocation: "KSh 202,243,910",
-  financialYear: "2026 / 2027",
+  financialYear: "2025 / 2026",
 };

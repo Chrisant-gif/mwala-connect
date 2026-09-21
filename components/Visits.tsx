@@ -122,7 +122,7 @@ export default function Visits() {
           </span>
 
           <span className="visit-view">
-            View engagement
+            View visit record
             <ArrowUpRight size={13} />
           </span>
         </div>
@@ -179,7 +179,7 @@ export default function Visits() {
           <div className="visits-empty">
             <CalendarDays size={32} />
 
-            <span>NO UPCOMING ENGAGEMENTS</span>
+            <span>NO UPCOMING FIELD VISITS</span>
 
             <h3>
               THE NEXT FIELD VISIT

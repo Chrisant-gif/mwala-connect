@@ -17,9 +17,9 @@ export default function Home() {
 
       <Stats />
 
-      <AllocationHistory />
-
       <Projects />
+
+      <AllocationHistory />
 
       <Wards />
 

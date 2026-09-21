@@ -5,7 +5,7 @@ export interface AllocationRecord {
 
 export const allocationHistory: AllocationRecord[] = [
   {
-    financialYear: "2026 / 2027",
+    financialYear: "2025 / 2026",
     amount: 202243910.0,
   },
   {

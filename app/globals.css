@@ -5883,8 +5883,13 @@ button {
     width: min(100% - 28px, 680px);
   }
 
-  .representative-header h2 {
+    .representative-header h2 {
+    width: calc(100% + 12px);
+    max-width: none;
+    padding-right: 12px;
+    box-sizing: border-box;
     font-size: clamp(42px, 14vw, 64px);
+    overflow: visible;
   }
 
   .representative-grid {

@@ -71,14 +71,15 @@ export default function Home() {
           }}
         >
           <div
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "minmax(0, 1.5fr) minmax(220px, 0.5fr)",
-              gap: "80px",
-              paddingBottom: "72px",
-            }}
-          >
+  className="footer-main"
+  style={{
+    display: "grid",
+    gridTemplateColumns:
+      "minmax(0, 1.5fr) minmax(220px, 0.5fr)",
+    gap: "80px",
+    paddingBottom: "72px",
+  }}
+>
             <div>
               <div
                 className="footer-brand"

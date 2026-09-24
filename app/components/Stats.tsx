@@ -164,7 +164,7 @@ export default function Stats() {
                 <span className="source-dot" />
 
                 <p>
-                  Official allocation for FY 2026 / 2027 as published
+                  Official allocation for FY 2025 / 2026 as published
                   by NGCDF Mwala Constituency.
                 </p>
               </div>

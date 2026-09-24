@@ -5884,13 +5884,14 @@ button {
   }
 
     .representative-header h2 {
-    width: calc(100% + 12px);
-    max-width: none;
-    padding-right: 12px;
-    box-sizing: border-box;
-    font-size: clamp(42px, 14vw, 64px);
-    overflow: visible;
-  }
+  width: calc(100% + 12px);
+  max-width: none;
+  padding-left: 2px;
+  padding-right: 12px;
+  box-sizing: border-box;
+  font-size: clamp(42px, 14vw, 64px);
+  overflow: visible;
+}
 
   .representative-grid {
     padding-top: 38px;

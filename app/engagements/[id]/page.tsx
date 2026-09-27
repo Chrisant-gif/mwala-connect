@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  CalendarDays,
+  MapPin,
+} from "lucide-react";
 
 import { engagements } from "../../data/engagements";
 
@@ -14,130 +19,180 @@ export default async function EngagementDetailsPage({
 }: EngagementDetailsPageProps) {
   const { id } = await params;
 
-  const engagement = engagements.find(
-    (item) => item.id === id
-  );
+  const engagement = engagements.find((item) => item.id === id);
 
   if (!engagement) {
     return (
-      <main className="min-h-screen bg-slate-950 px-6 py-24 text-white">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
-            Engagements
-          </p>
-
-          <h1 className="mt-4 text-4xl font-bold">
-            Engagement not found
-          </h1>
-
-          <p className="mt-4 text-slate-400">
-            The engagement you are looking for could not be found.
-          </p>
-
+      <main className="engagement-record-page">
+        <div className="engagement-record-shell">
           <Link
             href="/#engagements"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+            className="engagement-back-link"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft size={16} />
             Back to Engagements
           </Link>
+
+          <section className="engagement-not-found">
+            <p className="engagement-eyebrow">ENGAGEMENTS</p>
+
+            <h1>Engagement not found.</h1>
+
+            <p>
+              The engagement you are looking for could not be found in the
+              current records.
+            </p>
+
+            <Link
+              href="/#engagements"
+              className="engagement-primary-link"
+            >
+              Return to Engagements
+              <ArrowUpRight size={16} />
+            </Link>
+          </section>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-5xl">
-        {/* Back link */}
+    <main className="engagement-record-page">
+      <div className="engagement-record-shell">
+        {/* Back navigation */}
         <Link
           href="/#engagements"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 transition hover:text-white"
+          className="engagement-back-link"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft size={16} />
           Back to Engagements
         </Link>
 
-        {/* Header */}
-        <div className="mt-12">
-          <span className="inline-flex rounded-full border border-blue-400/30 bg-blue-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-blue-300">
-            {engagement.status}
-          </span>
+        {/* Record header */}
+        <header className="engagement-record-header">
+          <div className="engagement-record-index">
+            <span>CONSTITUENCY ENGAGEMENT</span>
+            <span>{engagement.status}</span>
+          </div>
 
-          <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl">
-            {engagement.title}
-          </h1>
+          <div className="engagement-record-heading">
+            <p className="engagement-eyebrow">
+              {engagement.type}
+            </p>
 
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400">
-            {engagement.description}
-          </p>
-        </div>
+            <h1>{engagement.title}</h1>
 
-        {/* Details */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-blue-400" />
+            <p className="engagement-record-description">
+              {engagement.description}
+            </p>
+          </div>
+        </header>
 
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Date
-                </p>
+        {/* Key information */}
+        <section className="engagement-record-meta">
+          <div className="engagement-meta-item">
+            <div className="engagement-meta-icon">
+              <CalendarDays size={18} />
+            </div>
 
-                <p className="mt-1 text-sm font-medium text-white">
-                  {engagement.date}
-                </p>
-              </div>
+            <div>
+              <span>Date</span>
+              <strong>{engagement.date}</strong>
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3">
-              <MapPin className="h-5 w-5 text-blue-400" />
+          <div className="engagement-meta-item">
+            <div className="engagement-meta-icon">
+              <MapPin size={18} />
+            </div>
+
+            <div>
+              <span>Location</span>
+              <strong>{engagement.location}</strong>
+            </div>
+          </div>
+
+          <div className="engagement-meta-item">
+            <div className="engagement-meta-icon">
+              <MapPin size={18} />
+            </div>
+
+            <div>
+              <span>Ward</span>
+              <strong>{engagement.ward}</strong>
+            </div>
+          </div>
+        </section>
+
+        {/* Record information */}
+        <section className="engagement-record-body">
+          <div className="engagement-section-label">
+            <span>01</span>
+            <p>ENGAGEMENT RECORD</p>
+          </div>
+
+          <div className="engagement-record-content">
+            <h2>Constituency engagement</h2>
+
+            <p>
+              This record documents an engagement associated with
+              development and public activity within Mwala Constituency.
+            </p>
+
+            <div className="engagement-detail-grid">
+              <div>
+                <span>Engagement type</span>
+                <strong>{engagement.type}</strong>
+              </div>
 
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Location
-                </p>
+                <span>Status</span>
+                <strong>{engagement.status}</strong>
+              </div>
 
-                <p className="mt-1 text-sm font-medium text-white">
-                  {engagement.location}
-                </p>
+              <div>
+                <span>Ward</span>
+                <strong>{engagement.ward}</strong>
+              </div>
+
+              <div>
+                <span>Location</span>
+                <strong>{engagement.location}</strong>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Engagement information */}
-        <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-            Engagement Type
-          </p>
-
-          <p className="mt-2 text-xl font-semibold">
-            {engagement.type}
-          </p>
-
-          <div className="mt-6 border-t border-white/10 pt-6">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Ward
-            </p>
-
-            <p className="mt-2 text-lg font-medium">
-              {engagement.ward}
-            </p>
+        {/* Media */}
+        <section className="engagement-media-section">
+          <div className="engagement-section-label">
+            <span>02</span>
+            <p>FIELD DOCUMENTATION</p>
           </div>
-        </div>
 
-        {/* Media placeholder */}
-        <div className="mt-8 rounded-3xl border border-dashed border-white/10 bg-white/[0.02] p-10 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-            Photos & Video
-          </p>
+          <div className="engagement-media-placeholder">
+            <div>
+              <span>PHOTOS & VIDEO</span>
 
-          <p className="mt-3 text-sm text-slate-500">
-            Engagement media will appear here.
-          </p>
+              <h2>Documentation will appear here.</h2>
+
+              <p>
+                Field photographs, video and supporting documentation can
+                be added once verified material is available.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer navigation */}
+        <div className="engagement-record-footer">
+          <Link
+            href="/#engagements"
+            className="engagement-footer-link"
+          >
+            <ArrowLeft size={16} />
+            All engagements
+          </Link>
         </div>
       </div>
     </main>

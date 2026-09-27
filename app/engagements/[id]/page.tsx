@@ -24,17 +24,9 @@ export default async function EngagementDetailsPage({
   if (!engagement) {
     return (
       <main className="engagement-record-page">
-        <div className="engagement-record-shell">
-          <Link
-            href="/#engagements"
-            className="engagement-back-link"
-          >
-            <ArrowLeft size={16} />
-            Back to Engagements
-          </Link>
-
-          <section className="engagement-not-found">
-            <p className="engagement-eyebrow">ENGAGEMENTS</p>
+        <div className="engagement-record-not-found">
+          <div>
+            <p className="section-kicker">ENGAGEMENTS</p>
 
             <h1>Engagement not found.</h1>
 
@@ -45,12 +37,12 @@ export default async function EngagementDetailsPage({
 
             <Link
               href="/#engagements"
-              className="engagement-primary-link"
+              className="engagement-record-button"
             >
+              <ArrowLeft size={15} />
               Return to Engagements
-              <ArrowUpRight size={16} />
             </Link>
-          </section>
+          </div>
         </div>
       </main>
     );
@@ -58,143 +50,262 @@ export default async function EngagementDetailsPage({
 
   return (
     <main className="engagement-record-page">
-      <div className="engagement-record-shell">
-        {/* Back navigation */}
-        <Link
-          href="/#engagements"
-          className="engagement-back-link"
-        >
-          <ArrowLeft size={16} />
-          Back to Engagements
-        </Link>
+      {/* =====================================================
+          HEADER
+          ===================================================== */}
 
-        {/* Record header */}
-        <header className="engagement-record-header">
-          <div className="engagement-record-index">
+      <header className="engagement-record-header">
+        <div className="engagement-record-header-inner">
+          <Link
+            href="/#engagements"
+            className="engagement-record-back"
+          >
+            <ArrowLeft size={15} />
+            Back to Engagements
+          </Link>
+
+          <span className="engagement-record-header-label">
+            MWALA CONNECT · ENGAGEMENT RECORD
+          </span>
+        </div>
+      </header>
+
+      {/* =====================================================
+          HERO
+          ===================================================== */}
+
+      <section className="engagement-record-hero">
+        <div className="engagement-record-inner">
+          <div className="engagement-record-top">
             <span>CONSTITUENCY ENGAGEMENT</span>
-            <span>{engagement.status}</span>
+
+            <span className="engagement-record-status">
+              <span />
+              {engagement.status}
+            </span>
           </div>
 
-          <div className="engagement-record-heading">
-            <p className="engagement-eyebrow">
-              {engagement.type}
+          <div className="engagement-record-hero-content">
+            <p className="engagement-record-location">
+              {engagement.type} · {engagement.ward}
             </p>
 
             <h1>{engagement.title}</h1>
 
-            <p className="engagement-record-description">
+            <p className="engagement-record-hero-description">
               {engagement.description}
             </p>
           </div>
-        </header>
+        </div>
+      </section>
 
-        {/* Key information */}
-        <section className="engagement-record-meta">
-          <div className="engagement-meta-item">
-            <div className="engagement-meta-icon">
-              <CalendarDays size={18} />
+      {/* =====================================================
+          INFORMATION
+          ===================================================== */}
+
+      <section className="engagement-record-section">
+        <div className="engagement-record-inner">
+          <p className="engagement-record-section-heading">
+            ENGAGEMENT INFORMATION
+          </p>
+
+          <div className="engagement-record-information-grid">
+            <article>
+              <span>Date</span>
+
+              <strong>{engagement.date}</strong>
+            </article>
+
+            <article>
+              <span>Location</span>
+
+              <strong>{engagement.location}</strong>
+            </article>
+
+            <article>
+              <span>Ward</span>
+
+              <strong>{engagement.ward}</strong>
+            </article>
+
+            <article>
+              <span>Status</span>
+
+              <strong>{engagement.status}</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          RECORD
+          ===================================================== */}
+
+      <section className="engagement-record-section">
+        <div className="engagement-record-inner">
+          <p className="engagement-record-section-heading">
+            01 · ENGAGEMENT RECORD
+          </p>
+
+          <div className="engagement-record-overview">
+            <div>
+              <h2>Constituency engagement</h2>
+
+              <p>
+                This record documents an engagement associated with
+                development and public activity within Mwala Constituency.
+              </p>
             </div>
 
+            <div className="engagement-record-source">
+              <span />
+              <span>
+                Mwala Connect
+                <br />
+                Constituency field record
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          FIELD DOCUMENTATION
+          ===================================================== */}
+
+      <section className="engagement-record-media-section">
+        <div className="engagement-record-inner">
+          <div className="engagement-record-media-heading">
+            <h2>
+              Field
+              <br />
+              <span>documentation.</span>
+            </h2>
+
+            <p>
+              Photographs, video and supporting material from this
+              engagement can be added here once verified field media is
+              available.
+            </p>
+          </div>
+
+          <div className="engagement-record-media-grid">
+            <article className="engagement-record-media-card">
+              <div className="engagement-record-media-placeholder">
+                <span>PHOTOS</span>
+
+                <strong>
+                  Field photographs will appear here.
+                </strong>
+
+                <p>
+                  Verified photographs from the engagement can be added to
+                  this record.
+                </p>
+              </div>
+
+              <div className="engagement-record-media-details">
+                <h3>Photo documentation</h3>
+
+                <p>
+                  Visual documentation from the field.
+                </p>
+
+                <span>MEDIA · TO BE ADDED</span>
+              </div>
+            </article>
+
+            <article className="engagement-record-media-card">
+              <div className="engagement-record-media-placeholder">
+                <span>VIDEO</span>
+
+                <strong>
+                  Video documentation will appear here.
+                </strong>
+
+                <p>
+                  Supporting video can be added once verified material is
+                  available.
+                </p>
+              </div>
+
+              <div className="engagement-record-media-details">
+                <h3>Video documentation</h3>
+
+                <p>
+                  Supporting footage from the engagement.
+                </p>
+
+                <span>MEDIA · TO BE ADDED</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================
+          RECORD DETAILS
+          ===================================================== */}
+
+      <section className="engagement-record-section engagement-record-section-green">
+        <div className="engagement-record-inner">
+          <p className="engagement-record-section-heading">
+            02 · RECORD DETAILS
+          </p>
+
+          <div className="engagement-record-details">
             <div>
+              <CalendarDays size={20} />
+
               <span>Date</span>
+
               <strong>{engagement.date}</strong>
             </div>
-          </div>
-
-          <div className="engagement-meta-item">
-            <div className="engagement-meta-icon">
-              <MapPin size={18} />
-            </div>
 
             <div>
+              <MapPin size={20} />
+
               <span>Location</span>
+
               <strong>{engagement.location}</strong>
             </div>
-          </div>
-
-          <div className="engagement-meta-item">
-            <div className="engagement-meta-icon">
-              <MapPin size={18} />
-            </div>
 
             <div>
+              <MapPin size={20} />
+
               <span>Ward</span>
+
               <strong>{engagement.ward}</strong>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Record information */}
-        <section className="engagement-record-body">
-          <div className="engagement-section-label">
-            <span>01</span>
-            <p>ENGAGEMENT RECORD</p>
+      {/* =====================================================
+          FOOTER
+          ===================================================== */}
+
+      <footer className="engagement-record-footer">
+        <div className="engagement-record-inner">
+          <div>
+            <span>MWALA CONNECT</span>
+
+            <h2>
+              Engagements
+              <br />
+              <em>in the field.</em>
+            </h2>
           </div>
 
-          <div className="engagement-record-content">
-            <h2>Constituency engagement</h2>
-
-            <p>
-              This record documents an engagement associated with
-              development and public activity within Mwala Constituency.
-            </p>
-
-            <div className="engagement-detail-grid">
-              <div>
-                <span>Engagement type</span>
-                <strong>{engagement.type}</strong>
-              </div>
-
-              <div>
-                <span>Status</span>
-                <strong>{engagement.status}</strong>
-              </div>
-
-              <div>
-                <span>Ward</span>
-                <strong>{engagement.ward}</strong>
-              </div>
-
-              <div>
-                <span>Location</span>
-                <strong>{engagement.location}</strong>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Media */}
-        <section className="engagement-media-section">
-          <div className="engagement-section-label">
-            <span>02</span>
-            <p>FIELD DOCUMENTATION</p>
-          </div>
-
-          <div className="engagement-media-placeholder">
-            <div>
-              <span>PHOTOS & VIDEO</span>
-
-              <h2>Documentation will appear here.</h2>
-
-              <p>
-                Field photographs, video and supporting documentation can
-                be added once verified material is available.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Footer navigation */}
-        <div className="engagement-record-footer">
           <Link
             href="/#engagements"
-            className="engagement-footer-link"
+            className="engagement-record-button"
           >
-            <ArrowLeft size={16} />
             All engagements
+            <ArrowUpRight size={15} />
           </Link>
         </div>
-      </div>
+      </footer>
     </main>
   );
 }

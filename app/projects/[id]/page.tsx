@@ -11,6 +11,7 @@ import {
 import { projects } from "../../data/projects";
 import { projectMedia } from "../../data/project-media";
 import { visits } from "../../data/visits";
+import { engagements } from "../../data/engagements";
 
 interface ProjectDetailsPageProps {
   params: Promise<{
@@ -107,6 +108,10 @@ export default async function ProjectDetailsPage({
 
   const relatedVisits = visits.filter(
     (visit) => visit.projectId === project.id,
+  );
+
+  const relatedEngagements = engagements.filter(
+    (engagement) => engagement.projectId === project.id,
   );
 
   const relatedMedia = projectMedia.filter(
@@ -321,11 +326,11 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
-      {/* Related Engagements */}
+      {/* Related Field Activity */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
-            <span>04 / CONSTITUENCY ENGAGEMENTS</span>
+            <span>04 / FIELD ACTIVITY</span>
           </div>
 
           <div className="project-record-engagement-heading">
@@ -333,7 +338,7 @@ export default async function ProjectDetailsPage({
               <h2>
                 RELATED
                 <br />
-                <span>ENGAGEMENTS.</span>
+                <span>FIELD ACTIVITY.</span>
               </h2>
 
               <p>
@@ -343,57 +348,138 @@ export default async function ProjectDetailsPage({
             </div>
 
             <span>
-              {relatedVisits.length}{" "}
-              {relatedVisits.length === 1
-                ? "engagement"
-                : "engagements"}
+              {relatedVisits.length +
+                relatedEngagements.length}{" "}
+              {relatedVisits.length +
+                relatedEngagements.length ===
+              1
+                ? "record"
+                : "records"}
             </span>
           </div>
 
-          {relatedVisits.length > 0 ? (
+          {relatedVisits.length > 0 ||
+          relatedEngagements.length > 0 ? (
             <div className="project-record-engagement-list">
-              {relatedVisits.map((visit) => (
-                <Link
-                  key={visit.id}
-                  href={`/visits/${visit.id}`}
-                  className="project-record-engagement"
-                >
-                  <div>
-                    <span>
-                      {visit.type.replaceAll("_", " ")}
-                    </span>
+              {relatedVisits.map((visit) => {
+                const matchingEngagement =
+                  relatedEngagements.find(
+                    (engagement) =>
+                      engagement.title === visit.title &&
+                      engagement.date ===
+                        `${visit.day === "Wednesday" ? "26" : visit.date} ${visit.month}`,
+                  );
 
-                    <h3>{visit.title}</h3>
+                return (
+                  <article
+                    key={`visit-${visit.id}`}
+                    className="project-record-engagement"
+                  >
+                    <div>
+                      <span>FIELD VISIT</span>
 
-                    <div className="project-record-engagement-meta">
-                      <span>
-                        <CalendarDays size={14} />
-                        {visit.date} {visit.month} · {visit.day}
-                      </span>
+                      <h3>{visit.title}</h3>
 
-                      <span>
-                        <Clock3 size={14} />
-                        {visit.time}
-                      </span>
+                      <div className="project-record-engagement-meta">
+                        <span>
+                          <CalendarDays size={14} />
+                          {visit.date} {visit.month} ·{" "}
+                          {visit.day}
+                        </span>
 
-                      <span>
-                        <MapPin size={14} />
-                        {visit.location}
-                      </span>
+                        <span>
+                          <Clock3 size={14} />
+                          {visit.time}
+                        </span>
+
+                        <span>
+                          <MapPin size={14} />
+                          {visit.location}
+                        </span>
+                      </div>
+
+                      <div
+                        className="project-record-engagement-links"
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                          marginTop: "18px",
+                        }}
+                      >
+                        <Link
+                          href={`/visits/${visit.id}`}
+                          className="project-record-button"
+                        >
+                          Visit record
+                          <ArrowUpRight size={15} />
+                        </Link>
+
+                        {matchingEngagement && (
+                          <Link
+                            href={`/engagements/${matchingEngagement.id}`}
+                            className="project-record-button"
+                          >
+                            Engagement record
+                            <ArrowUpRight size={15} />
+                          </Link>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  </article>
+                );
+              })}
 
-                  <ArrowUpRight size={20} />
-                </Link>
-              ))}
+              {relatedEngagements
+                .filter(
+                  (engagement) =>
+                    !relatedVisits.some(
+                      (visit) =>
+                        visit.title === engagement.title,
+                    ),
+                )
+                .map((engagement) => (
+                  <Link
+                    key={`engagement-${engagement.id}`}
+                    href={`/engagements/${engagement.id}`}
+                    className="project-record-engagement"
+                  >
+                    <div>
+                      <span>PUBLIC ENGAGEMENT</span>
+
+                      <h3>{engagement.title}</h3>
+
+                      <div className="project-record-engagement-meta">
+                        <span>
+                          <CalendarDays size={14} />
+                          {engagement.date}
+                        </span>
+
+                        {engagement.time && (
+                          <span>
+                            <Clock3 size={14} />
+                            {engagement.time}
+                          </span>
+                        )}
+
+                        <span>
+                          <MapPin size={14} />
+                          {engagement.location}
+                        </span>
+                      </div>
+                    </div>
+
+                    <ArrowUpRight size={20} />
+                  </Link>
+                ))}
             </div>
           ) : (
             <div className="project-record-empty">
-              <span>NO ENGAGEMENTS LINKED</span>
+              <span>NO FIELD ACTIVITY LINKED</span>
 
               <p>
-                No constituency engagements have been linked
-                to this project yet.
+                No constituency visits or public engagements
+                have been linked to this project yet.
               </p>
             </div>
           )}

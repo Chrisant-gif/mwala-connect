@@ -9,6 +9,7 @@ export type EngagementType =
 
 export interface Engagement {
   id: string;
+  projectId?: number;
   title: string;
   type: EngagementType;
   status: EngagementStatus;

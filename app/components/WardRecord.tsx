@@ -1,27 +1,35 @@
-import type { Ward, WardProjectStatus } from "../data/wards";
+import type { Project, ProjectStatus } from "../data/projects";
+
+interface Ward {
+  id: number;
+  name: string;
+  description: string;
+  projectCount: number;
+  projects: Project[];
+}
 
 interface WardRecordProps {
   ward: Ward;
 }
 
-function getStatusLabel(status: WardProjectStatus) {
+function getStatusLabel(status: ProjectStatus) {
   switch (status) {
     case "completed":
       return "Completed";
     case "ongoing":
       return "Ongoing";
-    case "upcoming":
+    case "pending":
       return "Upcoming";
   }
 }
 
-function getStatusClass(status: WardProjectStatus) {
+function getStatusClass(status: ProjectStatus) {
   switch (status) {
     case "completed":
       return "ward-project-status ward-project-status-completed";
     case "ongoing":
       return "ward-project-status ward-project-status-ongoing";
-    case "upcoming":
+    case "pending":
       return "ward-project-status ward-project-status-upcoming";
   }
 }
@@ -36,7 +44,7 @@ export default function WardRecord({ ward }: WardRecordProps) {
   ).length;
 
   const upcoming = ward.projects.filter(
-    (project) => project.status === "upcoming"
+    (project) => project.status === "pending"
   ).length;
 
   return (
@@ -128,7 +136,9 @@ export default function WardRecord({ ward }: WardRecordProps) {
 
                       <div>
                         <span>LAST VERIFIED</span>
-                        <strong>{project.lastVerified}</strong>
+                        <strong>
+                          {project.lastVerified ?? "To be verified"}
+                        </strong>
                       </div>
                     </div>
                   </div>

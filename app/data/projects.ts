@@ -13,7 +13,9 @@ export interface Project {
   location: string;
   ward: string;
   title: string;
+  category: string;
   description: string;
+  keyDetail: string;
   status: ProjectStatus;
   progress: number;
   budget: string;
@@ -31,8 +33,11 @@ export const projects: Project[] = [
     location: "Masii Ward",
     ward: "Masii",
     title: "Masii Water Project",
+    category: "Water infrastructure",
     description:
       "A water infrastructure project focused on improving access to reliable water for residents of Masii Ward.",
+    keyDetail:
+      "Project progress is currently documented at 65%, with further project information pending official verification.",
     status: "ongoing",
     progress: 65,
     budget: "To be verified",
@@ -46,35 +51,61 @@ export const projects: Project[] = [
 
   {
     id: 2,
-    location: "Mwala Constituency",
-    ward: "Ward to be verified",
-    title: "Community Development Initiative",
+    location: "Muthetheni Ward",
+    ward: "Muthetheni",
+    title: "Utithini Water Project",
+    category: "Water infrastructure",
     description:
-      "Development works supporting community infrastructure and improving access to essential public services.",
-    status: "ongoing",
-    progress: 48,
+      "A completed water project serving the local community through improved access to water.",
+    keyDetail:
+      "The project is powered by solar energy, adding a clean-energy component to the water infrastructure.",
+    status: "completed",
+    progress: 100,
     budget: "To be verified",
     startDate: "To be confirmed",
-    expectedCompletion: "To be confirmed",
-    source: "Project information pending official verification",
+    expectedCompletion: "Completed",
+    source: "Field information",
     verificationStatus: "in_progress",
-    lastVerified: "Verification in progress",
+    lastVerified: "To be verified",
   },
 
   {
     id: 3,
-    location: "Mwala Constituency",
-    ward: "Multiple wards",
-    title: "Public Infrastructure Programme",
+    location: "Muthetheni Ward",
+    ward: "Muthetheni",
+    title: "Kiluu Bridge",
+    category: "Community infrastructure",
     description:
-      "A constituency-wide programme focused on strengthening local infrastructure and community facilities.",
+      "A bridge construction project intended to improve local community connectivity and movement.",
+    keyDetail:
+      "The project was recently flagged off for the local community.",
+    status: "ongoing",
+    progress: 0,
+    budget: "To be verified",
+    startDate: "To be confirmed",
+    expectedCompletion: "To be confirmed",
+    source: "Field information",
+    verificationStatus: "in_progress",
+    lastVerified: "To be verified",
+  },
+
+  {
+    id: 4,
+    location: "Muthetheni Ward",
+    ward: "Muthetheni",
+    title: "Matuu Water Project",
+    category: "Water infrastructure",
+    description:
+      "A water project that has experienced a period of stalled activity and is expected to receive renewed support.",
+    keyDetail:
+      "Solar panels are expected to be introduced to provide power for the water project.",
     status: "pending",
     progress: 0,
     budget: "To be verified",
     startDate: "To be confirmed",
     expectedCompletion: "To be confirmed",
-    source: "Project information pending official verification",
+    source: "Field information",
     verificationStatus: "in_progress",
-    lastVerified: "Verification in progress",
+    lastVerified: "To be verified",
   },
 ];

@@ -5601,7 +5601,6 @@ button {
 
 .representative-section {
   position: relative;
-  overflow: hidden;
   background: var(--paper);
   color: var(--ink);
   border-top: 1px solid var(--line);

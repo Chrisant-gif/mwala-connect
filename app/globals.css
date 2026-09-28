@@ -714,6 +714,8 @@ button {
   flex-direction: column;
   border: 1px solid var(--line);
   background: #ebe8df;
+  box-sizing: border-box;
+  min-width: 0;
   transition:
     transform 220ms ease,
     background 220ms ease;
@@ -796,11 +798,15 @@ button {
 }
 
 .project-description {
+  width: 100%;
   max-width: 550px;
   margin: 22px 0 0;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.7;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  box-sizing: border-box;
 }
 
 .project-card-featured .project-description {

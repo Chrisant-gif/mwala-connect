@@ -5601,6 +5601,7 @@ button {
 
 .representative-section {
   position: relative;
+  overflow: hidden;
   background: var(--paper);
   color: var(--ink);
   border-top: 1px solid var(--line);
@@ -5882,13 +5883,14 @@ button {
     width: min(100% - 28px, 680px);
   }
 
-    .representative-header h2 {
-  width: calc(100% + 12px);
-  max-width: none;
-  padding-left: 2px;
-  padding-right: 12px;
+  .representative-header h2 {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
   box-sizing: border-box;
-  font-size: clamp(42px, 14vw, 64px);
+  font-size: clamp(40px, 13.5vw, 64px);
+  line-height: 0.88;
+  letter-spacing: -0.055em;
   overflow: visible;
 }
 

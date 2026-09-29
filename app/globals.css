@@ -772,9 +772,13 @@ button {
 }
 
 .project-main {
+  width: 100%;
+  max-width: 100%;
   margin-top: auto;
   padding: 80px 0 45px;
   min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .project-location {

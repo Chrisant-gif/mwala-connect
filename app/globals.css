@@ -2082,6 +2082,7 @@ button {
   min-height: 100vh;
   background: var(--paper);
   color: var(--ink);
+  overflow-x: hidden;
 }
 
 .project-record-inner {
@@ -2425,7 +2426,7 @@ button {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  font-size: clamp(44px, 12.5vw, 68px);
+  font-size: clamp(42px, 11.8vw, 66px);
   line-height: 0.92;
   letter-spacing: -0.05em;
   overflow-wrap: normal;

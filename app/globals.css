@@ -7078,3 +7078,532 @@ button {
     width: calc(100% - 32px);
   }
 }
+
+/* =========================================================
+   DEVELOPMENT TRACKER
+   ========================================================= */
+
+.development-tracker {
+  width: 100%;
+  padding: 110px 0 120px;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.development-tracker-inner {
+  width: min(1400px, calc(100% - 64px));
+  margin: 0 auto;
+}
+
+/* ---------- HEADER ---------- */
+
+.development-tracker-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 80px;
+  align-items: end;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.development-tracker-header > div {
+  min-width: 0;
+}
+
+.development-tracker .section-kicker {
+  margin: 0 0 18px;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.development-tracker-header h2 {
+  width: 100%;
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(52px, 7vw, 94px);
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  font-weight: 800;
+}
+
+.development-tracker-header h2 span {
+  display: block;
+  color: var(--green);
+}
+
+.development-tracker-intro {
+  max-width: 410px;
+  margin: 0 0 2px auto;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ---------- STATS ---------- */
+
+.development-tracker-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.development-tracker-stat {
+  min-width: 0;
+  min-height: 160px;
+  padding: 24px 24px 26px 0;
+  border-right: 1px solid var(--line);
+}
+
+.development-tracker-stat:not(:first-child) {
+  padding-left: 24px;
+}
+
+.development-tracker-stat:last-child {
+  border-right: 0;
+}
+
+.development-tracker-stat-index {
+  display: block;
+  margin-bottom: 34px;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.development-tracker-stat strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: clamp(42px, 4vw, 62px);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+}
+
+.development-tracker-stat > span:last-child {
+  display: block;
+  font-size: 10px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- RECORDS ---------- */
+
+.development-tracker-records {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.75fr);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- PROJECT RECORD ---------- */
+
+.development-tracker-project {
+  min-width: 0;
+  padding: 48px 56px 48px 0;
+  border-right: 1px solid var(--line);
+}
+
+.development-tracker-project-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 58px;
+}
+
+.development-tracker-label {
+  margin: 0 0 11px;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.development-tracker-location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.development-tracker-status {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border: 1px solid rgba(22, 63, 43, 0.3);
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.development-tracker-project-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.65fr);
+  gap: 56px;
+  align-items: end;
+}
+
+.development-tracker-project-main > div {
+  min-width: 0;
+}
+
+.development-tracker-project-main h3 {
+  max-width: 600px;
+  margin: 0 0 18px;
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+}
+
+.development-tracker-project-main p {
+  max-width: 520px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.development-tracker-progress {
+  min-width: 0;
+  padding-bottom: 3px;
+}
+
+.development-tracker-progress-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 11px;
+}
+
+.development-tracker-progress-heading span {
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.development-tracker-progress-heading strong {
+  font-size: 27px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.development-tracker-progress-track {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  background: rgba(16, 18, 15, 0.1);
+  overflow: hidden;
+}
+
+.development-tracker-progress-track span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+}
+
+.development-tracker-project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 46px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.development-tracker-project-footer > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.development-tracker-project-footer a,
+.development-tracker-visit a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--green);
+}
+
+/* ---------- FIELD RECORD ---------- */
+
+.development-tracker-visit {
+  min-width: 0;
+  padding: 48px 0 48px 42px;
+}
+
+.development-tracker-visit-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.development-tracker-visit-heading svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.development-tracker-date {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.development-tracker-date strong {
+  font-size: clamp(64px, 6vw, 82px);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  font-weight: 800;
+}
+
+.development-tracker-date span {
+  max-width: 120px;
+  font-size: 9px;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.development-tracker-visit h3 {
+  max-width: 330px;
+  margin: 0 0 15px;
+  font-size: clamp(24px, 2.3vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+}
+
+.development-tracker-visit > p {
+  max-width: 360px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.development-tracker-visit-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 28px 0 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.development-tracker-visit-meta span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9px;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- TABLET ---------- */
+
+@media (max-width: 900px) {
+  .development-tracker {
+    padding: 90px 0;
+  }
+
+  .development-tracker-inner {
+    width: min(100% - 48px, 1400px);
+  }
+
+  .development-tracker-header {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .development-tracker-intro {
+    margin-left: 0;
+  }
+
+  .development-tracker-records {
+    grid-template-columns: 1fr;
+  }
+
+  .development-tracker-project {
+    padding-right: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .development-tracker-visit {
+    padding-left: 0;
+  }
+
+  .development-tracker-visit > p {
+    max-width: 520px;
+  }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 640px) {
+  .development-tracker {
+    padding: 76px 0 84px;
+  }
+
+  .development-tracker-inner {
+    width: calc(100% - 32px);
+  }
+
+  .development-tracker-header {
+    gap: 26px;
+    padding-bottom: 40px;
+  }
+
+  .development-tracker-header h2 {
+    font-size: clamp(46px, 14vw, 72px);
+    line-height: 0.9;
+    letter-spacing: -0.055em;
+  }
+
+  .development-tracker-intro {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .development-tracker-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .development-tracker-stat {
+    min-height: 138px;
+    padding: 20px 16px 22px 0;
+  }
+
+  .development-tracker-stat:not(:first-child) {
+    padding-left: 16px;
+  }
+
+  .development-tracker-stat:nth-child(2),
+  .development-tracker-stat:nth-child(4) {
+    border-right: 0;
+  }
+
+  .development-tracker-stat:nth-child(3),
+  .development-tracker-stat:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .development-tracker-stat:nth-child(3) {
+    padding-left: 0;
+  }
+
+  .development-tracker-stat-index {
+    margin-bottom: 25px;
+  }
+
+  .development-tracker-stat strong {
+    font-size: 46px;
+  }
+
+  .development-tracker-stat > span:last-child {
+    font-size: 8px;
+  }
+
+  .development-tracker-project {
+    padding: 40px 0;
+  }
+
+  .development-tracker-project-top {
+    margin-bottom: 44px;
+  }
+
+  .development-tracker-project-main {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .development-tracker-project-main h3 {
+    font-size: clamp(34px, 10vw, 50px);
+  }
+
+  .development-tracker-project-main p {
+    font-size: 13px;
+  }
+
+  .development-tracker-progress {
+    max-width: 100%;
+  }
+
+  .development-tracker-project-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 38px;
+  }
+
+  .development-tracker-visit {
+    padding: 40px 0;
+  }
+
+  .development-tracker-visit-heading {
+    margin-bottom: 40px;
+  }
+
+  .development-tracker-date {
+    gap: 10px;
+  }
+
+  .development-tracker-date strong {
+    font-size: 64px;
+  }
+
+  .development-tracker-date span {
+    max-width: 110px;
+  }
+
+  .development-tracker-visit h3 {
+    font-size: 25px;
+  }
+
+  .development-tracker-visit > p {
+    font-size: 13px;
+  }
+}

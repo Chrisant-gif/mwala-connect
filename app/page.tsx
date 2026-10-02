@@ -1,3 +1,4 @@
+import DevelopmentTracker from "./components/DevelopmentTracker";
 import Representative from "./components/Representative";
 import Wards from "./components/Wards";
 import Navbar from "./components/Navbar";
@@ -32,6 +33,8 @@ export default function Home() {
       <AllocationHistory />
 
       <Wards />
+
+      <DevelopmentTracker />
 
       <Visits />
 

@@ -176,11 +176,15 @@ export default async function EngagementDetailsPage({
       <section className="engagement-record-media-section">
         <div className="engagement-record-inner">
           <div className="engagement-record-media-heading">
-            <h2>
-              Field
-              <br />
-              <span>documentation.</span>
-            </h2>
+            <h2 className="engagement-record-media-title">
+  <span className="engagement-record-media-title-line">
+    Field
+  </span>
+  <br />
+  <span className="engagement-record-media-title-line">
+    documentation.
+  </span>
+</h2>
 
             <p>
               Photographs, video and supporting material from this

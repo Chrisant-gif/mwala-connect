@@ -1,6 +1,7 @@
 "use client";
 
 import { allocationHistory } from "../data/allocations";
+import { constituencyStatistics } from "../data/statistics";
 
 function formatAmount(amount: number) {
   return `KSh ${amount.toLocaleString("en-KE", {
@@ -36,6 +37,35 @@ export default function AllocationHistory() {
             <div className="verified-label">
               <span />
               Allocation records · NGCDF Mwala Constituency
+            </div>
+          </div>
+        </div>
+
+        <div className="public-investment" id="current-allocation">
+          <div className="financial-heading">
+            <span>PUBLIC INVESTMENT</span>
+
+            <span>
+              FY {constituencyStatistics.financialYear}
+            </span>
+          </div>
+
+          <div className="financial-main">
+            <div>
+              <span>Total allocation</span>
+
+              <strong>
+                {constituencyStatistics.totalAllocation}
+              </strong>
+            </div>
+
+            <div className="financial-status">
+              <span className="source-dot" />
+
+              <p>
+                Official allocation for FY 2025 / 2026 as published
+                by NGCDF Mwala Constituency.
+              </p>
             </div>
           </div>
         </div>

@@ -30,11 +30,11 @@ export default function Home() {
 
       <Projects />
 
+      <DevelopmentTracker />
+
       <AllocationHistory />
 
       <Wards />
-
-      <DevelopmentTracker />
 
       <Visits />
 

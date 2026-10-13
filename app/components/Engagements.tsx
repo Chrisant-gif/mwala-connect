@@ -7,13 +7,9 @@ import {
   MapPin,
 } from "lucide-react";
 
-import { engagements } from "../app/data/engagements";
+import { engagements } from "../data/engagements";
 
 export default function Engagements() {
-  const featuredEngagement = engagements.find(
-    (engagement) => engagement.status === "upcoming",
-  );
-
   const pastEngagements = engagements.filter(
     (engagement) => engagement.status === "completed",
   );
@@ -24,103 +20,37 @@ export default function Engagements() {
         {/* Section introduction */}
         <div className="engagements-intro">
           <div>
-            <p className="section-kicker">06 / ENGAGEMENTS</p>
+            <p className="section-kicker">
+              Recent Engagements
+            </p>
 
             <h2>
-              CONSTITUENCY
+              FIELD
               <br />
-              <span>ENGAGEMENTS.</span>
+              <span>RECORDS.</span>
             </h2>
           </div>
 
           <div className="engagements-intro-copy">
             <p>
-              A record of constituency visits, community meetings, project
-              launches and other public engagements — organised by date,
-              location and engagement type.
+              A record of completed constituency visits, community meetings,
+              project launches and other public engagements, organised by
+              date, location and engagement type.
             </p>
 
             <div className="engagements-status-label">
               <span />
-              Public engagement record
+              Completed field records
             </div>
           </div>
         </div>
-
-        {/* Next engagement */}
-        {featuredEngagement && (
-          <section className="engagement-next">
-            <div className="engagement-next-header">
-              <div>
-                <span className="section-label">NEXT ENGAGEMENT</span>
-                <p>Upcoming constituency activity</p>
-              </div>
-
-              <span className="engagement-index">
-                ENGAGEMENT {String(featuredEngagement.id).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div className="engagement-next-content">
-              <div className="engagement-next-main">
-                <p className="engagement-type">
-                  {featuredEngagement.type}
-                </p>
-
-                <h3>{featuredEngagement.title}</h3>
-
-                <p className="engagement-description">
-                  {featuredEngagement.description}
-                </p>
-              </div>
-
-              <div className="engagement-next-details">
-                <div>
-                  <span>
-                    <CalendarDays />
-                    Date
-                  </span>
-
-                  <strong>{featuredEngagement.date}</strong>
-                </div>
-
-                <div>
-                  <span>
-                    <MapPin />
-                    Location
-                  </span>
-
-                  <strong>
-                    {featuredEngagement.location}
-                  </strong>
-
-                  <small>
-                    {featuredEngagement.ward} Ward
-                  </small>
-                </div>
-              </div>
-            </div>
-
-            <div className="engagement-next-footer">
-              <span>STATUS · UPCOMING</span>
-
-              <Link
-                href={`/engagements/${featuredEngagement.id}`}
-                className="engagement-link"
-              >
-                View engagement record
-                <ArrowUpRight />
-              </Link>
-            </div>
-          </section>
-        )}
 
         {/* Engagement archive */}
         <section className="engagement-archive">
           <div className="engagement-archive-header">
             <div>
               <span className="section-label">
-                ENGAGEMENT ARCHIVE
+                RECENT ENGAGEMENTS
               </span>
 
               <p>

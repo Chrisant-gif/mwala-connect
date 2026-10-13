@@ -6,8 +6,8 @@ import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import AllocationHistory from "./components/AllocationHistory";
 import Projects from "./components/Projects";
-import Visits from "../components/Visits";
-import Engagements from "../components/Engagements";
+import Visits from "./components/Visits";
+import Engagements from "./components/Engagements";
 
 const footerLinks = [
   { label: "Overview", href: "#overview" },

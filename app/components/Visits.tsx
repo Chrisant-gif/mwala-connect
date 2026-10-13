@@ -8,7 +8,7 @@ import {
   MapPin,
 } from "lucide-react";
 
-import { visits } from "../app/data/visits";
+import { visits } from "../data/visits";
 
 function getVisitTypeLabel(type: string) {
   switch (type) {
@@ -34,10 +34,6 @@ export default function Visits() {
     (visit) =>
       visit.status === "upcoming" ||
       visit.status === "ongoing",
-  );
-
-  const completedVisits = visits.filter(
-    (visit) => visit.status === "completed",
   );
 
   const renderVisitCard = (
@@ -137,11 +133,11 @@ export default function Visits() {
         <div className="visits-header">
           <div>
             <div className="section-number">
-           05 / FIELD VISITS
+              05 / FIELD ACTIVITY
             </div>
 
             <p className="section-kicker">
-              Field Schedule
+              Upcoming Visits
             </p>
 
             <h2>
@@ -154,8 +150,8 @@ export default function Visits() {
           <div className="visits-header-note">
             <p>
               Follow constituency visits, project launches and community
-              engagements — with field activity organised as part of the wider
-              development record.
+              engagements scheduled across Mwala Constituency, with field
+              activity organised as part of the wider development record.
             </p>
 
             <div className="verified-label">
@@ -191,32 +187,6 @@ export default function Visits() {
               Upcoming constituency visits, project launches and public
               engagements will appear here as they are added.
             </p>
-          </div>
-        )}
-
-        {/* Completed engagements */}
-        {completedVisits.length > 0 && (
-          <div className="visits-completed">
-            <div className="visits-completed-header">
-              <div>
-                <p className="section-kicker">
-                  Field Activity History
-                </p>
-
-                <h3>RECENT ENGAGEMENTS</h3>
-              </div>
-
-              <span className="verified-label">
-                <span />
-                Completed field activities
-              </span>
-            </div>
-
-            <div className="visits-list">
-              {completedVisits.map((visit, index) =>
-                renderVisitCard(visit, index),
-              )}
-            </div>
           </div>
         )}
       </div>

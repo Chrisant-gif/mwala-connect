@@ -584,7 +584,7 @@ button {
 .financial-status p {
   max-width: 420px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.52);
+  color: #555850;
   font-size: 13px;
   line-height: 1.7;
 }
@@ -4459,6 +4459,10 @@ button {
   padding-top: 28px;
 }
 
+.public-investment .financial-main > div > span {
+  color: #10120f;
+}
+
 
 /* =========================================================
    DEVELOPMENT ARCHIVE — MOBILE
@@ -4673,10 +4677,11 @@ button {
 .public-investment .financial-heading {
   padding-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #10120f;
 }
 
-.public-investment .financial-main {
-  padding-top: 28px;
+.public-investment .financial-heading span {
+  color: #10120f;
 }
 
 

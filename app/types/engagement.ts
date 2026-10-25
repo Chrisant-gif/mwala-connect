@@ -1,4 +1,4 @@
-export type EngagementStatus = "upcoming" | "completed";
+export type EngagementStatus = "upcoming" | "ongoing" | "completed";
 
 export type EngagementType =
   | "Project Launch"

@@ -1,47 +1,47 @@
-"use client";
 
-import { constituencyStatistics } from "../data/statistics";
+import type { ConstituencyStatistics } from "../data/statistics";
 
-const statistics = [
-  {
-    number: "01",
-    value: String(constituencyStatistics.wards),
-    label: "Wards",
-  },
-  {
-    number: "02",
-    value:
-      constituencyStatistics.projects > 0
-        ? String(constituencyStatistics.projects)
-        : "—",
-    label: "Development Projects",
-  },
-  {
-    number: "03",
-    value: constituencyStatistics.residentsServed,
-    label: "Residents Served",
-  },
-];
+interface StatsProps {
+  statistics: ConstituencyStatistics;
+}
 
-const developmentStatus = [
-  {
-    number: "01",
-    value: constituencyStatistics.ongoingProjects,
-    label: "Ongoing",
-  },
-  {
-    number: "02",
-    value: constituencyStatistics.completedProjects,
-    label: "Completed",
-  },
-  {
-    number: "03",
-    value: constituencyStatistics.pendingProjects,
-    label: "Pending",
-  },
-];
+export default function Stats({ statistics }: StatsProps) {
+  const headlineStatistics = [
+    {
+      number: "01",
+      value: String(statistics.wards),
+      label: "Wards",
+    },
+    {
+      number: "02",
+      value: statistics.projects > 0 ? String(statistics.projects) : "—",
+      label: "Development Projects",
+    },
+    {
+      number: "03",
+      value: statistics.residentsServed,
+      label: "Residents Served",
+    },
+  ];
 
-export default function Stats() {
+  const developmentStatus = [
+    {
+      number: "01",
+      value: statistics.ongoingProjects,
+      label: "Ongoing",
+    },
+    {
+      number: "02",
+      value: statistics.completedProjects,
+      label: "Completed",
+    },
+    {
+      number: "03",
+      value: statistics.pendingProjects,
+      label: "Pending",
+    },
+  ];
+
   return (
     <>
       {/* Overview */}
@@ -77,11 +77,11 @@ export default function Stats() {
         <div className="stats-intro">
           <span>MWALA AT A GLANCE</span>
 
-          <span>FY {constituencyStatistics.financialYear}</span>
+          <span>FY {statistics.financialYear}</span>
         </div>
 
         <div className="stats-grid">
-          {statistics.map((stat) => (
+          {headlineStatistics.map((stat) => (
             <article className="stat-card" key={stat.number}>
               <span className="stat-index">{stat.number}</span>
 
@@ -114,9 +114,7 @@ export default function Stats() {
               implementation stage.
             </p>
 
-            <span>
-              {constituencyStatistics.projects} TOTAL PROJECTS
-            </span>
+            <span>{statistics.projects} TOTAL PROJECTS</span>
           </div>
 
           <div className="development-archive-grid">

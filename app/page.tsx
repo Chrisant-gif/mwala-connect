@@ -1,3 +1,4 @@
+import { getConstituencyStatistics } from "../lib/supabase/data";
 import DevelopmentTracker from "./components/DevelopmentTracker";
 import Representative from "./components/Representative";
 import Wards from "./components/Wards";
@@ -19,14 +20,15 @@ const footerLinks = [
   { label: "The Rep", href: "#representative" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const statistics = await getConstituencyStatistics();
   return (
     <main>
       <Navbar />
 
       <Hero />
 
-      <Stats />
+      <Stats statistics={statistics} />
 
       <Projects />
 

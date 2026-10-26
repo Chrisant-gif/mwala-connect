@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -8,10 +9,12 @@ import {
   MapPin,
 } from "lucide-react";
 
-import { projects } from "../../data/projects";
+import { getProjects } from "../../../lib/supabase/data";
 import { projectMedia } from "../../data/project-media";
 import { visits } from "../../data/visits";
 import { engagements } from "../../data/engagements";
+
+export const dynamic = "force-dynamic";
 
 interface ProjectDetailsPageProps {
   params: Promise<{
@@ -25,13 +28,10 @@ function getVerificationLabel(
   switch (status) {
     case "verified":
       return "Verified";
-
     case "in_progress":
       return "Verification in progress";
-
     case "unverified":
       return "Not yet verified";
-
     default:
       return status;
   }
@@ -43,13 +43,10 @@ function getStatusLabel(
   switch (status) {
     case "ongoing":
       return "Ongoing";
-
     case "completed":
       return "Completed";
-
     case "pending":
       return "Pending";
-
     default:
       return status;
   }
@@ -59,6 +56,7 @@ export default async function ProjectDetailsPage({
   params,
 }: ProjectDetailsPageProps) {
   const { id } = await params;
+  const projects = await getProjects();
 
   const project = projects.find(
     (item) => item.id === Number(id),
@@ -102,7 +100,6 @@ export default async function ProjectDetailsPage({
   );
 
   const statusLabel = getStatusLabel(project.status);
-
   const isVerified =
     project.verificationStatus === "verified";
 
@@ -120,7 +117,6 @@ export default async function ProjectDetailsPage({
 
   return (
     <main className="project-record-page">
-      {/* Header */}
       <header className="project-record-header">
         <div className="project-record-header-inner">
           <Link
@@ -137,7 +133,6 @@ export default async function ProjectDetailsPage({
         </div>
       </header>
 
-      {/* Hero */}
       <section className="project-record-hero">
         <div className="project-record-inner">
           <div className="project-record-top">
@@ -165,7 +160,6 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
-      {/* Project Information */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -180,7 +174,6 @@ export default async function ProjectDetailsPage({
 
             <article>
               <span>Implementation</span>
-
               <strong>{project.progress}%</strong>
 
               <div className="project-record-progress">
@@ -199,15 +192,12 @@ export default async function ProjectDetailsPage({
 
             <article>
               <span>Expected completion</span>
-              <strong>
-                {project.expectedCompletion}
-              </strong>
+              <strong>{project.expectedCompletion}</strong>
             </article>
           </div>
         </div>
       </section>
 
-      {/* Verification */}
       <section className="project-record-section project-record-section-green">
         <div className="project-record-inner">
           <div className="project-record-verification">
@@ -219,7 +209,6 @@ export default async function ProjectDetailsPage({
 
             <div>
               <span>INFORMATION STATUS</span>
-
               <h2>{verificationLabel}</h2>
 
               <p>
@@ -239,7 +228,6 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
-      {/* Project Overview */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -257,7 +245,6 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
-      {/* Media */}
       <section className="project-record-section project-record-media-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -294,16 +281,13 @@ export default async function ProjectDetailsPage({
                   ) : (
                     <div className="project-record-media-placeholder">
                       <span>MEDIA</span>
-
                       <strong>{media.title}</strong>
-
                       <p>Media awaiting upload</p>
                     </div>
                   )}
 
                   <div className="project-record-media-details">
                     <h3>{media.title}</h3>
-
                     <p>{media.description}</p>
 
                     {media.date && (
@@ -326,7 +310,6 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
-      {/* Related Field Activity */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -377,7 +360,6 @@ export default async function ProjectDetailsPage({
                   >
                     <div>
                       <span>FIELD VISIT</span>
-
                       <h3>{visit.title}</h3>
 
                       <div className="project-record-engagement-meta">
@@ -446,7 +428,6 @@ export default async function ProjectDetailsPage({
                   >
                     <div>
                       <span>PUBLIC ENGAGEMENT</span>
-
                       <h3>{engagement.title}</h3>
 
                       <div className="project-record-engagement-meta">
@@ -486,7 +467,6 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
-      {/* Timeline */}
       <section className="project-record-section project-record-timeline-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -496,26 +476,19 @@ export default async function ProjectDetailsPage({
           <div className="project-record-timeline">
             <div>
               <CalendarDays size={18} />
-
               <span>Start</span>
-
               <strong>{project.startDate}</strong>
             </div>
 
             <div>
               <CalendarDays size={18} />
-
               <span>Expected Completion</span>
-
-              <strong>
-                {project.expectedCompletion}
-              </strong>
+              <strong>{project.expectedCompletion}</strong>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="project-record-footer">
         <div className="project-record-inner">
           <div>

@@ -1,10 +1,15 @@
+
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, Clock3, MapPin } from "lucide-react";
 
-import { projects } from "../data/projects";
+import { getProjects } from "../../lib/supabase/data";
 import { visits } from "../data/visits";
 
-export default function DevelopmentTracker() {
+export const dynamic = "force-dynamic";
+
+export default async function DevelopmentTracker() {
+  const projects = await getProjects();
+
   const ongoingProjects = projects.filter(
     (project) => project.status === "ongoing"
   );
@@ -54,7 +59,9 @@ export default function DevelopmentTracker() {
 
           <div className="development-tracker-stat">
             <span className="development-tracker-stat-index">02</span>
-            <strong>{ongoingProjects.length.toString().padStart(2, "0")}</strong>
+            <strong>
+              {ongoingProjects.length.toString().padStart(2, "0")}
+            </strong>
             <span>Ongoing</span>
           </div>
 
@@ -68,7 +75,9 @@ export default function DevelopmentTracker() {
 
           <div className="development-tracker-stat">
             <span className="development-tracker-stat-index">04</span>
-            <strong>{pendingProjects.length.toString().padStart(2, "0")}</strong>
+            <strong>
+              {pendingProjects.length.toString().padStart(2, "0")}
+            </strong>
             <span>Pending</span>
           </div>
         </div>

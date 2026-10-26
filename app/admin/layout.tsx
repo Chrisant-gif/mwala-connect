@@ -6,6 +6,7 @@ import AdminSignOutButton from "./AdminSignOutButton";
 
 const navigation = [
   { label: "Overview", href: "/admin" },
+  { label: "Projects", href: "/admin/projects" },
 ];
 
 export default async function AdminLayout({

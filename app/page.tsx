@@ -1,4 +1,9 @@
-import { getConstituencyStatistics } from "../lib/supabase/data";
+
+import {
+  getConstituencyStatistics,
+  getProjects,
+} from "../lib/supabase/data";
+
 import DevelopmentTracker from "./components/DevelopmentTracker";
 import Representative from "./components/Representative";
 import Wards from "./components/Wards";
@@ -20,8 +25,14 @@ const footerLinks = [
   { label: "The Rep", href: "#representative" },
 ];
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
-  const statistics = await getConstituencyStatistics();
+  const [statistics, projects] = await Promise.all([
+    getConstituencyStatistics(),
+    getProjects(),
+  ]);
+
   return (
     <main>
       <Navbar />
@@ -30,7 +41,7 @@ export default async function Home() {
 
       <Stats statistics={statistics} />
 
-      <Projects />
+      <Projects projects={projects} />
 
       <DevelopmentTracker />
 
@@ -76,15 +87,15 @@ export default async function Home() {
           }}
         >
           <div
-  className="footer-main"
-  style={{
-    display: "grid",
-    gridTemplateColumns:
-      "minmax(0, 1.5fr) minmax(220px, 0.5fr)",
-    gap: "80px",
-    paddingBottom: "72px",
-  }}
->
+            className="footer-main"
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "minmax(0, 1.5fr) minmax(220px, 0.5fr)",
+              gap: "80px",
+              paddingBottom: "72px",
+            }}
+          >
             <div>
               <div
                 className="footer-brand"

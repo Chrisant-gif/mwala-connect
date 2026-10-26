@@ -1,13 +1,10 @@
+
 "use client";
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import {
-  projects,
-  type Project,
-  type ProjectStatus,
-} from "../data/projects";
+import type { Project, ProjectStatus } from "../data/projects";
 
 const filters: Array<{
   label: string;
@@ -47,7 +44,11 @@ function getStatusLabel(status: ProjectStatus) {
   }
 }
 
-export default function Projects() {
+interface ProjectsProps {
+  projects: Project[];
+}
+
+export default function Projects({ projects }: ProjectsProps) {
   const [activeFilter, setActiveFilter] = useState<
     "all" | ProjectStatus
   >("all");
@@ -55,17 +56,14 @@ export default function Projects() {
   const projectCounts = useMemo(
     () => ({
       all: projects.length,
-      ongoing: projects.filter(
-        (project) => project.status === "ongoing",
-      ).length,
-      completed: projects.filter(
-        (project) => project.status === "completed",
-      ).length,
-      pending: projects.filter(
-        (project) => project.status === "pending",
-      ).length,
+      ongoing: projects.filter((project) => project.status === "ongoing")
+        .length,
+      completed: projects.filter((project) => project.status === "completed")
+        .length,
+      pending: projects.filter((project) => project.status === "pending")
+        .length,
     }),
-    [],
+    [projects],
   );
 
   const filteredProjects = useMemo(() => {
@@ -73,10 +71,8 @@ export default function Projects() {
       return projects;
     }
 
-    return projects.filter(
-      (project) => project.status === activeFilter,
-    );
-  }, [activeFilter]);
+    return projects.filter((project) => project.status === activeFilter);
+  }, [activeFilter, projects]);
 
   return (
     <>
@@ -135,9 +131,7 @@ export default function Projects() {
             <button
               type="button"
               className={`project-archive-stat ${
-                activeFilter === "all"
-                  ? "project-archive-stat-active"
-                  : ""
+                activeFilter === "all" ? "project-archive-stat-active" : ""
               }`}
               onClick={() => setActiveFilter("all")}
             >
@@ -157,9 +151,7 @@ export default function Projects() {
             <button
               type="button"
               className={`project-archive-stat ${
-                activeFilter === "ongoing"
-                  ? "project-archive-stat-active"
-                  : ""
+                activeFilter === "ongoing" ? "project-archive-stat-active" : ""
               }`}
               onClick={() => setActiveFilter("ongoing")}
             >
@@ -201,9 +193,7 @@ export default function Projects() {
             <button
               type="button"
               className={`project-archive-stat ${
-                activeFilter === "pending"
-                  ? "project-archive-stat-active"
-                  : ""
+                activeFilter === "pending" ? "project-archive-stat-active" : ""
               }`}
               onClick={() => setActiveFilter("pending")}
             >
@@ -231,10 +221,8 @@ export default function Projects() {
 
             <p>
               {filteredProjects.length}{" "}
-              {filteredProjects.length === 1
-                ? "project"
-                : "projects"}{" "}
-              currently displayed
+              {filteredProjects.length === 1 ? "project" : "projects"} currently
+              displayed
             </p>
           </div>
 
@@ -243,11 +231,7 @@ export default function Projects() {
               <button
                 key={filter.value}
                 type="button"
-                className={
-                  activeFilter === filter.value
-                    ? "active"
-                    : ""
-                }
+                className={activeFilter === filter.value ? "active" : ""}
                 onClick={() => setActiveFilter(filter.value)}
               >
                 {filter.label}
@@ -262,9 +246,7 @@ export default function Projects() {
               <ProjectCard
                 key={project.id}
                 project={project}
-                featured={
-                  project.featured || index === 0
-                }
+                featured={Boolean(project.featured) || index === 0}
               />
             ))
           ) : (
@@ -301,15 +283,11 @@ function ProjectCard({
       }`}
     >
       <div className="project-top">
-        <span>
-          PROJECT {String(project.id).padStart(2, "0")}
-        </span>
+        <span>PROJECT {String(project.id).padStart(2, "0")}</span>
 
         <span
           className={`project-status ${
-            project.status === "ongoing"
-              ? "status-live"
-              : ""
+            project.status === "ongoing" ? "status-live" : ""
           }`}
         >
           <span />
@@ -324,9 +302,7 @@ function ProjectCard({
 
         <h3>{project.title}</h3>
 
-        <p className="project-description">
-          {project.description}
-        </p>
+        <p className="project-description">{project.description}</p>
       </div>
 
       <div className="project-bottom">
@@ -373,10 +349,7 @@ function ProjectCard({
       <div className="project-footer">
         <span>{project.source}</span>
 
-        <Link
-          href={`/projects/${project.id}`}
-          className="project-link"
-        >
+        <Link href={`/projects/${project.id}`} className="project-link">
           View project record
           <span>↗</span>
         </Link>

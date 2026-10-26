@@ -10,17 +10,17 @@ import {
 } from "lucide-react";
 
 import { getProjects } from "../../../lib/supabase/data";
-import { projectMedia } from "../../data/project-media";
+import { getProjectMedia } from "../../../lib/supabase/project-media";
 import { visits } from "../../data/visits";
 import { engagements } from "../../data/engagements";
-
-export const dynamic = "force-dynamic";
 
 interface ProjectDetailsPageProps {
   params: Promise<{
     id: string;
   }>;
 }
+
+export const dynamic = "force-dynamic";
 
 function getVerificationLabel(
   status: "verified" | "in_progress" | "unverified",
@@ -56,20 +56,17 @@ export default async function ProjectDetailsPage({
   params,
 }: ProjectDetailsPageProps) {
   const { id } = await params;
-  const projects = await getProjects();
+  const projectId = Number(id);
 
-  const project = projects.find(
-    (item) => item.id === Number(id),
-  );
+  const projects = await getProjects();
+  const project = projects.find((item) => item.id === projectId);
 
   if (!project) {
     return (
       <main className="project-record-page">
         <section className="project-record-not-found">
           <div>
-            <p className="section-kicker">
-              Development Projects
-            </p>
+            <p className="section-kicker">Development Projects</p>
 
             <h1>
               PROJECT
@@ -95,13 +92,13 @@ export default async function ProjectDetailsPage({
     );
   }
 
+  const relatedMedia = await getProjectMedia(project.id);
+
   const verificationLabel = getVerificationLabel(
     project.verificationStatus,
   );
-
   const statusLabel = getStatusLabel(project.status);
-  const isVerified =
-    project.verificationStatus === "verified";
+  const isVerified = project.verificationStatus === "verified";
 
   const relatedVisits = visits.filter(
     (visit) => visit.projectId === project.id,
@@ -111,12 +108,9 @@ export default async function ProjectDetailsPage({
     (engagement) => engagement.projectId === project.id,
   );
 
-  const relatedMedia = projectMedia.filter(
-    (media) => media.projectId === project.id,
-  );
-
   return (
     <main className="project-record-page">
+      {/* Header */}
       <header className="project-record-header">
         <div className="project-record-header-inner">
           <Link
@@ -133,6 +127,7 @@ export default async function ProjectDetailsPage({
         </div>
       </header>
 
+      {/* Hero */}
       <section className="project-record-hero">
         <div className="project-record-inner">
           <div className="project-record-top">
@@ -160,6 +155,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Project Information */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -198,6 +194,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Verification */}
       <section className="project-record-section project-record-section-green">
         <div className="project-record-inner">
           <div className="project-record-verification">
@@ -209,6 +206,7 @@ export default async function ProjectDetailsPage({
 
             <div>
               <span>INFORMATION STATUS</span>
+
               <h2>{verificationLabel}</h2>
 
               <p>
@@ -228,6 +226,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Project Overview */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -245,6 +244,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Project Media */}
       <section className="project-record-section project-record-media-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -276,7 +276,52 @@ export default async function ProjectDetailsPage({
                 >
                   {media.url ? (
                     <div className="project-record-media-image">
-                      {/* Verified media will be rendered here. */}
+                      {media.type === "image" ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={media.url}
+                          alt={media.title}
+                          loading="lazy"
+                          style={{
+                            display: "block",
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      ) : media.type === "video" ? (
+                        <video
+                          src={media.url}
+                          controls
+                          preload="metadata"
+                          playsInline
+                          aria-label={media.title}
+                          style={{
+                            display: "block",
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "contain",
+                            background: "#10120f",
+                          }}
+                        >
+                          Your browser does not support video playback.
+                        </video>
+                      ) : (
+                        <div className="project-record-media-placeholder">
+                          <span>DOCUMENT</span>
+                          <strong>{media.title}</strong>
+
+                          <a
+                            href={media.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="project-record-button"
+                          >
+                            Open document
+                            <ArrowUpRight size={15} />
+                          </a>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div className="project-record-media-placeholder">
@@ -290,8 +335,19 @@ export default async function ProjectDetailsPage({
                     <h3>{media.title}</h3>
                     <p>{media.description}</p>
 
-                    {media.date && (
-                      <span>{media.date}</span>
+                    {media.date && <span>{media.date}</span>}
+
+                    {media.url && media.type === "document" && (
+                      <a
+                        href={media.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-record-button"
+                        style={{ marginTop: "12px" }}
+                      >
+                        View document
+                        <ArrowUpRight size={15} />
+                      </a>
                     )}
                   </div>
                 </article>
@@ -310,6 +366,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Related Field Activity */}
       <section className="project-record-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -331,11 +388,8 @@ export default async function ProjectDetailsPage({
             </div>
 
             <span>
-              {relatedVisits.length +
-                relatedEngagements.length}{" "}
-              {relatedVisits.length +
-                relatedEngagements.length ===
-              1
+              {relatedVisits.length + relatedEngagements.length}{" "}
+              {relatedVisits.length + relatedEngagements.length === 1
                 ? "record"
                 : "records"}
             </span>
@@ -345,13 +399,12 @@ export default async function ProjectDetailsPage({
           relatedEngagements.length > 0 ? (
             <div className="project-record-engagement-list">
               {relatedVisits.map((visit) => {
-                const matchingEngagement =
-                  relatedEngagements.find(
-                    (engagement) =>
-                      engagement.title === visit.title &&
-                      engagement.date ===
-                        `${visit.day === "Wednesday" ? "26" : visit.date} ${visit.month}`,
-                  );
+                const matchingEngagement = relatedEngagements.find(
+                  (engagement) =>
+                    engagement.title === visit.title &&
+                    engagement.date ===
+                      `${visit.day === "Wednesday" ? "26" : visit.date} ${visit.month}`,
+                );
 
                 return (
                   <article
@@ -365,8 +418,7 @@ export default async function ProjectDetailsPage({
                       <div className="project-record-engagement-meta">
                         <span>
                           <CalendarDays size={14} />
-                          {visit.date} {visit.month} ·{" "}
-                          {visit.day}
+                          {visit.date} {visit.month} · {visit.day}
                         </span>
 
                         <span>
@@ -416,8 +468,7 @@ export default async function ProjectDetailsPage({
                 .filter(
                   (engagement) =>
                     !relatedVisits.some(
-                      (visit) =>
-                        visit.title === engagement.title,
+                      (visit) => visit.title === engagement.title,
                     ),
                 )
                 .map((engagement) => (
@@ -467,6 +518,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Project Timeline */}
       <section className="project-record-section project-record-timeline-section">
         <div className="project-record-inner">
           <div className="project-record-section-heading">
@@ -489,6 +541,7 @@ export default async function ProjectDetailsPage({
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="project-record-footer">
         <div className="project-record-inner">
           <div>

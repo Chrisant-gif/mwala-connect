@@ -25,6 +25,7 @@ const footerLinks = [
   { label: "Field Visits", href: "#visits" },
   { label: "Engagements", href: "#engagements" },
   { label: "The Rep", href: "#representative" },
+  { label: "Admin", href: "/admin" },
 ];
 
 export const dynamic = "force-dynamic";

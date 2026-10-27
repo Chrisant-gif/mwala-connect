@@ -1,5 +1,6 @@
 
 import {
+  getAllocations,
   getConstituencyStatistics,
   getProjects,
 } from "../lib/supabase/data";
@@ -28,9 +29,10 @@ const footerLinks = [
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [statistics, projects] = await Promise.all([
+  const [statistics, projects, allocations] = await Promise.all([
     getConstituencyStatistics(),
     getProjects(),
+    getAllocations(),
   ]);
 
   return (
@@ -45,7 +47,10 @@ export default async function Home() {
 
       <DevelopmentTracker />
 
-      <AllocationHistory />
+      <AllocationHistory
+        allocations={allocations}
+        statistics={statistics}
+      />
 
       <Wards />
 

@@ -1,11 +1,29 @@
 
-import type { AllocationRecord } from "../../app/data/allocations";
-import type { Project, ProjectStatus, VerificationStatus } from "../../app/data/projects";
-import type { ProjectMedia, ProjectMediaType } from "../../app/data/project-media";
+import type {
+  AllocationRecord,
+  AllocationVerificationStatus,
+} from "../../app/data/allocations";
+import type {
+  Project,
+  ProjectStatus,
+  VerificationStatus,
+} from "../../app/data/projects";
+import type {
+  ProjectMedia,
+  ProjectMediaType,
+} from "../../app/data/project-media";
 import type { ConstituencyStatistics } from "../../app/data/statistics";
-import type { Visit, VisitStatus, VisitType } from "../../app/data/visits";
+import type {
+  Visit,
+  VisitStatus,
+  VisitType,
+} from "../../app/data/visits";
 import type { Ward } from "../../app/data/wards";
-import type { Engagement, EngagementStatus, EngagementType } from "../../app/types/engagement";
+import type {
+  Engagement,
+  EngagementStatus,
+  EngagementType,
+} from "../../app/types/engagement";
 
 export interface WardRow {
   id: number;
@@ -78,19 +96,47 @@ export interface ProjectMediaRow {
 }
 
 function requireProjectStatus(value: string): ProjectStatus {
-  if (value === "ongoing" || value === "completed" || value === "pending") {
+  if (
+    value === "ongoing" ||
+    value === "completed" ||
+    value === "pending"
+  ) {
     return value;
   }
 
-  throw new Error(`Unsupported project status received from Supabase: ${value}`);
+  throw new Error(
+    `Unsupported project status received from Supabase: ${value}`,
+  );
 }
 
 function requireVerificationStatus(value: string): VerificationStatus {
-  if (value === "verified" || value === "in_progress" || value === "unverified") {
+  if (
+    value === "verified" ||
+    value === "in_progress" ||
+    value === "unverified"
+  ) {
     return value;
   }
 
-  throw new Error(`Unsupported verification status received from Supabase: ${value}`);
+  throw new Error(
+    `Unsupported verification status received from Supabase: ${value}`,
+  );
+}
+
+function requireAllocationVerificationStatus(
+  value: string,
+): AllocationVerificationStatus {
+  if (
+    value === "verified" ||
+    value === "in_progress" ||
+    value === "unverified"
+  ) {
+    return value;
+  }
+
+  throw new Error(
+    `Unsupported allocation verification status received from Supabase: ${value}`,
+  );
 }
 
 function formatAmount(amount: number | string): string {
@@ -106,14 +152,20 @@ function formatAmount(amount: number | string): string {
   })}`;
 }
 
-export function mapProjectRow(row: ProjectRow, wardName?: string): Project {
+export function mapProjectRow(
+  row: ProjectRow,
+  wardName?: string,
+): Project {
   const budget =
     row.budget_display ||
-    (row.budget_amount !== null ? formatAmount(row.budget_amount) : "To be verified");
+    (row.budget_amount !== null
+      ? formatAmount(row.budget_amount)
+      : "To be verified");
 
   return {
     id: Number(row.id),
-    location: row.location || (wardName ? `${wardName} Ward` : "To be confirmed"),
+    location:
+      row.location || (wardName ? `${wardName} Ward` : "To be confirmed"),
     ward: wardName || "To be confirmed",
     title: row.title,
     category: row.category,
@@ -149,15 +201,26 @@ export function mapAllocationRow(row: AllocationRow): AllocationRecord {
   return {
     financialYear: row.financial_year,
     amount: Number(row.amount),
+    source: row.source,
+    verificationStatus: requireAllocationVerificationStatus(
+      row.verification_status,
+    ),
+    lastVerified: row.last_verified,
   };
 }
 
 function mapActivityStatus(value: string): VisitStatus {
-  if (value === "upcoming" || value === "ongoing" || value === "completed") {
+  if (
+    value === "upcoming" ||
+    value === "ongoing" ||
+    value === "completed"
+  ) {
     return value;
   }
 
-  throw new Error(`Unsupported field activity status received from Supabase: ${value}`);
+  throw new Error(
+    `Unsupported field activity status received from Supabase: ${value}`,
+  );
 }
 
 function mapVisitType(value: string): VisitType {
@@ -175,7 +238,10 @@ function mapVisitType(value: string): VisitType {
   throw new Error(`Unsupported visit type received from Supabase: ${value}`);
 }
 
-function getVisitDateParts(label: string | null, activityDate: string | null) {
+function getVisitDateParts(
+  label: string | null,
+  activityDate: string | null,
+) {
   const displayLabel = label || activityDate || "";
   const match = displayLabel.match(
     /^(?:(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+)?(\d{1,2})\s+([A-Za-z]{3,})$/i,
@@ -201,7 +267,9 @@ export function mapVisitRow(row: FieldActivityRow): Visit {
 
   return {
     id: Number(row.source_id),
-    ...(row.project_id !== null ? { projectId: Number(row.project_id) } : {}),
+    ...(row.project_id !== null
+      ? { projectId: Number(row.project_id) }
+      : {}),
     ...dateParts,
     time: row.time_label || row.activity_time || "To be confirmed",
     location: row.location || row.ward_label || "To be confirmed",
@@ -230,22 +298,32 @@ function mapEngagementType(value: string): EngagementType {
     case "community event":
       return "Community Event";
     default:
-      throw new Error(`Unsupported engagement type received from Supabase: ${value}`);
+      throw new Error(
+        `Unsupported engagement type received from Supabase: ${value}`,
+      );
   }
 }
 
 function mapEngagementStatus(value: string): EngagementStatus {
-  if (value === "upcoming" || value === "ongoing" || value === "completed") {
+  if (
+    value === "upcoming" ||
+    value === "ongoing" ||
+    value === "completed"
+  ) {
     return value;
   }
 
-  throw new Error(`Unsupported engagement status received from Supabase: ${value}`);
+  throw new Error(
+    `Unsupported engagement status received from Supabase: ${value}`,
+  );
 }
 
 export function mapEngagementRow(row: FieldActivityRow): Engagement {
   return {
     id: row.source_id,
-    ...(row.project_id !== null ? { projectId: Number(row.project_id) } : {}),
+    ...(row.project_id !== null
+      ? { projectId: Number(row.project_id) }
+      : {}),
     title: row.title,
     type: mapEngagementType(row.activity_type),
     status: mapEngagementStatus(row.status),
@@ -266,7 +344,9 @@ export function mapProjectMediaRow(row: ProjectMediaRow): ProjectMedia {
     row.media_type !== "video" &&
     row.media_type !== "document"
   ) {
-    throw new Error(`Unsupported project media type received from Supabase: ${row.media_type}`);
+    throw new Error(
+      `Unsupported project media type received from Supabase: ${row.media_type}`,
+    );
   }
 
   return {

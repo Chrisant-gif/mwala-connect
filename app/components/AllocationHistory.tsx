@@ -1,16 +1,29 @@
+
 "use client";
 
-import { allocationHistory } from "../data/allocations";
-import { constituencyStatistics } from "../data/statistics";
+import type { AllocationRecord } from "../data/allocations";
+import type { ConstituencyStatistics } from "../data/statistics";
+
+interface AllocationHistoryProps {
+  allocations: AllocationRecord[];
+  statistics: ConstituencyStatistics;
+}
 
 function formatAmount(amount: number) {
+  if (!Number.isFinite(amount)) {
+    return "To be verified";
+  }
+
   return `KSh ${amount.toLocaleString("en-KE", {
-    minimumFractionDigits: 2,
+    minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
     maximumFractionDigits: 2,
   })}`;
 }
 
-export default function AllocationHistory() {
+export default function AllocationHistory({
+  allocations,
+  statistics,
+}: AllocationHistoryProps) {
   return (
     <section
       className="allocation-history-section"
@@ -45,58 +58,60 @@ export default function AllocationHistory() {
           <div className="financial-heading">
             <span>PUBLIC INVESTMENT</span>
 
-            <span>
-              FY {constituencyStatistics.financialYear}
-            </span>
+            <span>FY {statistics.financialYear}</span>
           </div>
 
           <div className="financial-main">
             <div>
               <span>Total allocation</span>
 
-              <strong>
-                {constituencyStatistics.totalAllocation}
-              </strong>
+              <strong>{statistics.totalAllocation}</strong>
             </div>
 
             <div className="financial-status">
               <span className="source-dot" />
 
               <p>
-                Official allocation for FY 2025 / 2026 as published
-                by NGCDF Mwala Constituency.
+                Allocation figures confirmed with NGCDF Mwala
+                Constituency.
               </p>
             </div>
           </div>
         </div>
 
         <div className="allocation-history-list">
-          {allocationHistory.map((record, index) => (
-            <div
-              className="allocation-row"
-              key={record.financialYear}
-            >
-              <span className="allocation-index">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+          {allocations.length > 0 ? (
+            allocations.map((record, index) => (
+              <div
+                className="allocation-row"
+                key={record.financialYear}
+              >
+                <span className="allocation-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
 
-              <span className="allocation-year">
-                FY {record.financialYear}
-              </span>
+                <span className="allocation-year">
+                  FY {record.financialYear}
+                </span>
 
-              <strong className="allocation-amount">
-                {formatAmount(record.amount)}
-              </strong>
-            </div>
-          ))}
+                <strong className="allocation-amount">
+                  {formatAmount(record.amount)}
+                </strong>
+              </div>
+            ))
+          ) : (
+            <p className="allocation-history-empty">
+              No allocation records are currently available.
+            </p>
+          )}
         </div>
 
         <div className="allocation-history-source">
           <span className="source-dot" />
 
           <p>
-            Figures shown are based on the allocation records
-            published by NGCDF Mwala Constituency.
+            Allocation figures have been confirmed with NGCDF
+            Mwala Constituency.
           </p>
         </div>
       </div>

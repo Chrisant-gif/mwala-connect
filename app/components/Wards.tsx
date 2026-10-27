@@ -1,8 +1,13 @@
+
 import Link from "next/link";
 
-import { wards } from "../data/wards";
+import type { Ward } from "../data/wards";
 
-export default function Wards() {
+interface WardsProps {
+  wards: Ward[];
+}
+
+export default function Wards({ wards }: WardsProps) {
   return (
     <section className="wards-section" id="wards">
       <div className="wards-inner">

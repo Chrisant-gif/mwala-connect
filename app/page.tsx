@@ -3,6 +3,7 @@ import {
   getAllocations,
   getConstituencyStatistics,
   getProjects,
+  getWards,
 } from "../lib/supabase/data";
 
 import DevelopmentTracker from "./components/DevelopmentTracker";
@@ -29,10 +30,11 @@ const footerLinks = [
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [statistics, projects, allocations] = await Promise.all([
+  const [statistics, projects, allocations, wards] = await Promise.all([
     getConstituencyStatistics(),
     getProjects(),
     getAllocations(),
+    getWards(),
   ]);
 
   return (
@@ -52,7 +54,7 @@ export default async function Home() {
         statistics={statistics}
       />
 
-      <Wards />
+      <Wards wards={wards} />
 
       <Visits />
 

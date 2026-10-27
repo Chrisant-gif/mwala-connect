@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getProjects } from "../../../lib/supabase/data";
 import { getProjectMedia } from "../../../lib/supabase/project-media";
 import UploadMediaForm from "./UploadMediaForm";
+import MediaRecordActions from "./MediaRecordActions";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,12 @@ export default async function AdminMediaPage() {
   const projectNames = new Map(
     projects.map((project) => [project.id, project.title]),
   );
+
+  const projectOptions = projects.map((project) => ({
+    id: project.id,
+    title: project.title,
+    ward: project.ward,
+  }));
 
   return (
     <div className="space-y-8">
@@ -30,8 +37,8 @@ export default async function AdminMediaPage() {
           </h1>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-600">
-            Upload photographs, videos and supporting documents to
-            the relevant development project.
+            Upload and manage photographs, videos and supporting documents
+            for development projects.
           </p>
         </div>
 
@@ -55,17 +62,10 @@ export default async function AdminMediaPage() {
         </div>
 
         {projects.length > 0 ? (
-          <UploadMediaForm
-            projects={projects.map((project) => ({
-              id: project.id,
-              title: project.title,
-              ward: project.ward,
-            }))}
-          />
+          <UploadMediaForm projects={projectOptions} />
         ) : (
           <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
-            No projects are available. Create a project before
-            uploading media.
+            No projects are available. Create a project before uploading media.
           </p>
         )}
       </section>
@@ -78,7 +78,7 @@ export default async function AdminMediaPage() {
             </h2>
 
             <p className="mt-1 text-sm text-gray-500">
-              Records currently stored in Supabase.
+              Edit details, replace files or remove records.
             </p>
           </div>
 
@@ -90,21 +90,21 @@ export default async function AdminMediaPage() {
 
         {mediaRecords.length === 0 ? (
           <p className="p-6 text-sm text-gray-500">
-            No media records could be found.
+            No media records were found.
           </p>
         ) : (
           <div className="divide-y divide-gray-100">
             {mediaRecords.map((media) => (
               <article
                 key={media.id}
-                className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center"
+                className="flex flex-col gap-4 p-5 lg:flex-row lg:items-start"
               >
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-green-50 text-xs font-bold uppercase tracking-wide text-green-800">
                   {media.type}
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-semibold text-gray-900">
+                  <h3 className="break-words font-semibold text-gray-900">
                     {media.title}
                   </h3>
 
@@ -114,7 +114,7 @@ export default async function AdminMediaPage() {
                   </p>
 
                   {media.description && (
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 whitespace-pre-wrap break-words text-sm text-gray-500">
                       {media.description}
                     </p>
                   )}
@@ -124,22 +124,29 @@ export default async function AdminMediaPage() {
                       {media.date}
                     </p>
                   )}
+
+                  <div className="mt-3">
+                    {media.url ? (
+                      <a
+                        href={media.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+                      >
+                        View current file
+                      </a>
+                    ) : (
+                      <span className="inline-flex rounded-full bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-800">
+                        Awaiting upload
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {media.url ? (
-                  <a
-                    href={media.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex w-fit items-center rounded-lg border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
-                  >
-                    View file
-                  </a>
-                ) : (
-                  <span className="w-fit rounded-full bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-800">
-                    Awaiting upload
-                  </span>
-                )}
+                <MediaRecordActions
+                  media={media}
+                  projects={projectOptions}
+                />
               </article>
             ))}
           </div>

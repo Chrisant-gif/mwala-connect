@@ -13,6 +13,8 @@ export interface ProjectMediaRecord {
   description: string;
   url: string;
   storagePath: string | null;
+  mediaDate: string | null;
+  dateLabel: string | null;
   date?: string;
 }
 
@@ -40,9 +42,13 @@ function formatMediaDate(
     return undefined;
   }
 
-  const date = new Date(`${mediaDate.slice(0, 10)}T00:00:00Z`);
+  const dateValue = mediaDate.slice(0, 10);
+  const date = new Date(`${dateValue}T00:00:00Z`);
 
-  if (Number.isNaN(date.getTime())) {
+  if (
+    Number.isNaN(date.getTime()) ||
+    !date.toISOString().startsWith(dateValue)
+  ) {
     return undefined;
   }
 
@@ -59,6 +65,9 @@ function mapMediaRow(row: ProjectMediaRow): ProjectMediaRecord {
       ? row.media_type
       : "image";
 
+  const mediaDate = row.media_date?.slice(0, 10) ?? null;
+  const dateLabel = row.date_label;
+
   return {
     id: row.id,
     projectId: row.project_id,
@@ -67,7 +76,9 @@ function mapMediaRow(row: ProjectMediaRow): ProjectMediaRecord {
     description: row.description ?? "",
     url: row.url ?? "",
     storagePath: row.storage_path,
-    date: formatMediaDate(row.media_date, row.date_label),
+    mediaDate,
+    dateLabel,
+    date: formatMediaDate(mediaDate, dateLabel),
   };
 }
 

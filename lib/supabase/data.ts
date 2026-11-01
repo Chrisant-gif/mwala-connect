@@ -41,6 +41,17 @@ async function getWardRows(): Promise<WardRow[]> {
   return (data ?? []) as unknown as WardRow[];
 }
 
+export async function getWardOptions(): Promise<
+  { id: number; name: string }[]
+> {
+  const rows = await getWardRows();
+
+  return rows.map((ward) => ({
+    id: Number(ward.id),
+    name: ward.name,
+  }));
+}
+
 async function getProjectRows(): Promise<ProjectRow[]> {
   const supabase = await createClient();
 

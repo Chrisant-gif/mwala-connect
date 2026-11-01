@@ -89,6 +89,20 @@ export async function createProject(
       };
     }
 
+    // Confirm that the selected ward exists.
+const { data: ward, error: wardError } = await supabase
+  .from("wards")
+  .select("id")
+  .eq("id", wardId)
+  .maybeSingle();
+
+if (wardError || !ward) {
+  return {
+    success: false,
+    message: "The selected ward could not be found. Please select a valid ward.",
+  };
+}
+
     if (
       !["ongoing", "completed", "pending"].includes(status)
     ) {
